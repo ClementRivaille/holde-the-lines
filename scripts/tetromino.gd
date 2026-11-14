@@ -51,6 +51,8 @@ var SHAPE_BY_TYPE: Dictionary[SHAPE_TYPE, Array] = {
 var _shape: Array[Array] = []
 var _nbBlocks: int = 0
 
+var _grabbed := false
+
 
 func _ready() -> void:
 	_shape.assign(SHAPE_BY_TYPE[shape_type].map(func (row: Array) -> Array: return row.duplicate()))
@@ -59,11 +61,16 @@ func _ready() -> void:
 		_shape = _rotate_shape(_shape)
 
 	for i in _nbBlocks:
-		var block = piece_prefab.instantiate()
+		var block: BlockPiece = piece_prefab.instantiate()
 		add_child(block)
-
+		block.on_grabbed.connect(on_grab)
 
 	_build_shape()
+
+
+
+func on_grab():
+	_grabbed = true
 
 func _build_shape() -> void:
 	var child_idx: int = 0
@@ -91,3 +98,17 @@ func _rotate_shape(shape: Array[Array]) -> Array[Array]:
 			rotated_shape[x][SHAPE_WIDTH - 1 - y] = value
 
 	return rotated_shape
+
+func _physics_process(_delta: float) -> void:
+	if _grabbed:
+		global_position = get_viewport().get_mouse_position()
+
+
+func _input(event: InputEvent) -> void:
+	if _grabbed && event is InputEventMouseButton:
+		var mouse_event :=  event as InputEventMouseButton
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT &&	mouse_event.is_released():
+			_grabbed = false
+		elif mouse_event.button_index == MOUSE_BUTTON_RIGHT && mouse_event.is_pressed():
+			_shape = _rotate_shape(_shape)
+			_build_shape()
