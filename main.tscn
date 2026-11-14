@@ -1,3 +1,28 @@
 [gd_scene format=3 uid="uid://d2e2y0fmljsua"]
 
+[ext_resource type="Script" uid="uid://cehnya550v65k" path="res://scripts/tetromino.gd" id="1_ig7tw"]
+
 [node name="Node2D" type="Node2D" unique_id=626972420]
+
+[node name="Tetromino" type="Node2D" parent="." unique_id=915736883]
+position = Vector2(481, 393)
+script = ExtResource("1_ig7tw")
+metadata/_custom_type_script = "uid://cehnya550v65k"
+
+[node name="Tetromino2" type="Node2D" parent="." unique_id=1060137083]
+position = Vector2(566, 161)
+script = ExtResource("1_ig7tw")
+shape_type = 2
+metadata/_custom_type_script = "uid://cehnya550v65k"
+
+[node name="Tetromino3" type="Node2D" parent="." unique_id=2044715780]
+position = Vector2(84, 242)
+script = ExtResource("1_ig7tw")
+shape_type = 4
+metadata/_custom_type_script = "uid://cehnya550v65k"
+
+[node name="Tetromino4" type="Node2D" parent="." unique_id=1935065048]
+position = Vector2(300, 207)
+script = ExtResource("1_ig7tw")
+shape_type = 5
+metadata/_custom_type_script = "uid://cehnya550v65k"

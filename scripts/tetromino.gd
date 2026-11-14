@@ -48,13 +48,13 @@ var SHAPE_BY_TYPE: Dictionary[SHAPE_TYPE, Array] = {
 @export var shape_type: SHAPE_TYPE = SHAPE_TYPE.T
 @export var piece_prefab: PackedScene = preload("res://prefabs/block_piece.tscn")
 
-var _shape: Array[Array]
+var _shape: Array[Array] = []
 var _nbBlocks: int = 0
 
 
 func _ready() -> void:
-	_shape = SHAPE_BY_TYPE[shape_type].map(func (row: Array[int]): return row.duplicate())
-	_nbBlocks = _shape.reduce(func (row: Array[int]) -> int: return row.count(1), 0)
+	_shape.assign(SHAPE_BY_TYPE[shape_type].map(func (row: Array) -> Array: return row.duplicate()))
+	_nbBlocks = _shape.reduce(func (sum: int, row: Array) -> int: return sum + row.count(1), 0)
 	for i in randi_range(0, 3):
 		_shape = _rotate_shape(_shape)
 
@@ -82,7 +82,7 @@ func _build_shape() -> void:
 
 
 func _rotate_shape(shape: Array[Array]) -> Array[Array]:
-	var rotated_shape: Array[Array] = [[], [], []]
+	var rotated_shape: Array[Array] = [[0,0,0], [0,0,0], [0,0,0]]
 
 	for y in SHAPE_WIDTH:
 		var row: Array = shape[y]
