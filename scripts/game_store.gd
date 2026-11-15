@@ -29,7 +29,7 @@ func _ready() -> void:
 
 func grab_tetromino(tetromino: Array[Array]):
 	is_dragging = true
-	hand_tetromino = tetromino
+	hand_tetromino = tetromino.duplicate()
 	on_drag.emit()
 
 func release_tetromino():
@@ -68,7 +68,7 @@ func update_cursor_position(position: Vector2i):
 		on_tetromino_placeable.emit(can_be_placed, droped_blocks)
 
 func update_hand_tetromino(shape: Array[Array]):
-	hand_tetromino = shape
+	hand_tetromino = shape.duplicate()
 	if is_dragging:
 		check_tetromino_drop_position(cursor_position.x, cursor_position.y)
 

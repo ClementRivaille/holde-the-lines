@@ -68,14 +68,6 @@ var _grabbed := false
 
 func _ready() -> void:
 	GameStoreInstance.on_tetromino_placeable.connect(on_placeable)
-	GameStoreInstance.on_drop.connect(on_drop)
-
-	# Prototype only
-	if GameStoreInstance.block_pool_instance == null:
-		GameStoreInstance.block_pool_initiated.connect(build)
-	else:
-		build()
-
 
 func build():
 	# Init shape with rotation
@@ -105,12 +97,18 @@ func build():
 		add_child(block)
 		block.block_id = block_props[i].id
 		block.set_type(block_props[i].type)
-		block.on_grabbed.connect(on_grab)
 
 	_build_shape()
 
-func on_grab():
+func reset():
+	for node: Node in get_children():
+		node.queue_free()
+	build()
+
+func grab():
 	_grabbed = true
+	for block: BlockPiece in get_children():
+		block.set_placeable(false)
 	GameStoreInstance.grab_tetromino(_shape)
 
 func _build_shape() -> void:
@@ -123,7 +121,7 @@ func _build_shape() -> void:
 			if has_block:
 				var block_id: int = _shape[row_idx][col_idx]
 				var block_idx: int = get_children().find_custom(func (b: BlockPiece): return b.block_id == block_id)
-				assert(block_idx != -1, "ERROR: Block % not instantiated" % block_id)
+				assert(block_idx != -1, "ERROR: Block %s not instantiated" % block_id)
 				var block: Node2D = get_child(block_idx)
 				block.position.x = (col_idx - center) * BlockPiece.BLOCK_SIZE
 				block.position.y = (row_idx - center) * BlockPiece.BLOCK_SIZE
@@ -170,9 +168,10 @@ func on_placeable(placeable: bool, _target: Array[Vector2i]):
 	for block: BlockPiece in get_children():
 		block.set_placeable(placeable)
 
-func on_drop(placed: bool):
-	if !_grabbed: return
-
+func drop():
 	_grabbed = false
-	if placed:
-		queue_free()
+	for block: BlockPiece in get_children():
+		block.set_placeable(true)
+
+func is_grabbed() -> bool:
+	return _grabbed
