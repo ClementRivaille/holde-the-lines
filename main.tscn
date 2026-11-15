@@ -2,18 +2,42 @@
 
 [ext_resource type="Script" uid="uid://cehnya550v65k" path="res://scripts/tetromino.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://byja66fyj1qlr" path="res://scripts/drop_zone.gd" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://pxhkb0lu558b" path="res://sprites/grid-tileset.png" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
-[node name="Node2D" type="Node2D" unique_id=626972420]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
+texture = ExtResource("3_h2yge")
+texture_region_size = Vector2i(20, 20)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_pvvjn"]
+tile_size = Vector2i(20, 20)
+sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[node name="Main" type="Node2D" unique_id=626972420]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=613755552]
+
+[node name="DropZone" type="Area2D" parent="." unique_id=1487723071]
+script = ExtResource("2_0xm2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DropZone" unique_id=2144460545]
+shape = SubResource("RectangleShape2D_pvvjn")
+
+[node name="TileMap" type="TileMapLayer" parent="DropZone" unique_id=531501595]
+self_modulate = Color(1, 1, 1, 0.28235295)
+use_parent_material = true
+tile_set = SubResource("TileSet_pvvjn")
 
 [node name="Tetromino" type="Node2D" parent="." unique_id=915736883]
-position = Vector2(481, 393)
+position = Vector2(408, -42)
 script = ExtResource("1_ig7tw")
 metadata/_custom_type_script = "uid://cehnya550v65k"
 
 [node name="Tetromino2" type="Node2D" parent="." unique_id=1060137083]
-position = Vector2(566, 161)
+position = Vector2(-529, -146)
 script = ExtResource("1_ig7tw")
 shape_type = 2
 metadata/_custom_type_script = "uid://cehnya550v65k"
@@ -30,8 +54,20 @@ script = ExtResource("1_ig7tw")
 shape_type = 5
 metadata/_custom_type_script = "uid://cehnya550v65k"
 
-[node name="DropZone" type="Area2D" parent="." unique_id=1487723071]
-script = ExtResource("2_0xm2m")
+[node name="UICanva" type="CanvasLayer" parent="." unique_id=468360717]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DropZone" unique_id=2144460545]
-shape = SubResource("RectangleShape2D_pvvjn")
+[node name="Debug" type="Control" parent="UICanva" unique_id=1219506513]
+layout_mode = 3
+anchor_right = 0.16666667
+anchor_bottom = 0.18518518
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_1bvp3")
+metadata/_edit_use_anchors_ = true
+
+[node name="CursorPosition" type="Label" parent="UICanva/Debug" unique_id=1733575479]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Blabla"
