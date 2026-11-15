@@ -3,6 +3,10 @@ class_name DropZone
 
 @onready var collisionShape: CollisionShape2D = $CollisionShape2D
 @onready var tilemap: TileMapLayer = $TileMap
+@onready var preview_area: Node2D = $Preview
+@onready var blocks_area: Node2D = $Blocks
+
+@export var preview_block_prefab: PackedScene = preload("res://prefabs/preview_block.tscn")
 
 var _is_cursor_inside := false
 
@@ -21,6 +25,8 @@ func _ready() -> void:
 		for y in range(0, GameStore.GRID_HEIGHT):
 			tilemap.set_cell(Vector2i(x, y), 0, Vector2i(0,0))
 
+	GameStoreInstance.on_tetromino_placeable.connect(on_block_placeable)
+
 func on_mouse_enter():
 	_is_cursor_inside = true
 
@@ -35,3 +41,12 @@ func _process(_delta: float) -> void:
 
 func get_coordinates(local_pos: Vector2) -> Vector2i:
 	return tilemap.local_to_map(local_pos)
+
+func on_block_placeable(placeable: bool, positions: Array[Vector2i]):
+		preview_area.get_children().map(func (block: Node): block.queue_free())
+		if placeable:
+			for block_position in positions:
+				var global_pos := tilemap.map_to_local(block_position) + tilemap.global_position
+				var preview: PreviewBlock = preview_block_prefab.instantiate()
+				preview_area.add_child(preview)
+				preview.global_position = global_pos

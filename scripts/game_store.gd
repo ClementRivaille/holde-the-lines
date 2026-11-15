@@ -80,7 +80,8 @@ func check_tetromino_drop_position(cursor_x: int, cursor_y: int):
 				var cell_row := center_pos.y - center + row_candidate
 				for col_candidate in range(hand_tetromino.size()):
 					var cell_col = center_pos.x - center + col_candidate
-					candidate.append(Vector2(cell_col, cell_row))
+					if (hand_tetromino[row_candidate][col_candidate] > 0):
+						candidate.append(Vector2(cell_col, cell_row))
 
 	can_be_placed = candidate.size() > 0
 	droped_blocks = candidate

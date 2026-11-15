@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://7emd68f27k3u"]
+
+[ext_resource type="Script" uid="uid://cvmfgpng0pcjg" path="res://scripts/preview_block.gd" id="1_5q6vt"]
+
+[sub_resource type="Gradient" id="Gradient_b2buo"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r30ga"]
+gradient = SubResource("Gradient_b2buo")
+width = 20
+height = 20
+
+[node name="PreviewBlock" type="Sprite2D" unique_id=1224965565]
+texture = SubResource("GradientTexture2D_r30ga")
+script = ExtResource("1_5q6vt")
+blink_speed = 0.4
+min_alpha = 0.3

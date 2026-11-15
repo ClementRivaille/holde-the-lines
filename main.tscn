@@ -31,6 +31,10 @@ self_modulate = Color(1, 1, 1, 0.28235295)
 use_parent_material = true
 tile_set = SubResource("TileSet_pvvjn")
 
+[node name="Preview" type="Node2D" parent="DropZone" unique_id=1893210135]
+
+[node name="Blocks" type="Node2D" parent="DropZone" unique_id=662553194]
+
 [node name="Tetromino" type="Node2D" parent="." unique_id=915736883]
 position = Vector2(408, -42)
 script = ExtResource("1_ig7tw")
