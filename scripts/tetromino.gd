@@ -97,7 +97,8 @@ func _build_shape() -> void:
 
 
 func _rotate_shape(shape: Array[Array]) -> Array[Array]:
-	var rotated_shape: Array[Array] = [[0,0,0], [0,0,0], [0,0,0]]
+	var rotated_shape: Array[Array] = []
+	rotated_shape.assign(shape.map(func (row: Array): return row.map(func (_v): return 0)))
 
 	for y in _shape.size():
 		var row: Array = shape[y]

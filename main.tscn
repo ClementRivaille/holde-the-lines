@@ -58,6 +58,12 @@ script = ExtResource("1_ig7tw")
 shape_type = 5
 metadata/_custom_type_script = "uid://cehnya550v65k"
 
+[node name="Tetromino5" type="Node2D" parent="." unique_id=778927676]
+position = Vector2(234, -181)
+script = ExtResource("1_ig7tw")
+shape_type = 6
+metadata/_custom_type_script = "uid://cehnya550v65k"
+
 [node name="UICanva" type="CanvasLayer" parent="." unique_id=468360717]
 
 [node name="Debug" type="Control" parent="UICanva" unique_id=1219506513]
