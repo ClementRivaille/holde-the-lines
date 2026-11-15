@@ -52,6 +52,12 @@ var SHAPE_BY_TYPE: Dictionary[SHAPE_TYPE, Array] = {
 }
 
 @export var shape_type: SHAPE_TYPE = SHAPE_TYPE.T
+@export var block_types: Array[BlockProperties.BlockType] = [
+	BlockProperties.BlockType.STANDARD,
+	BlockProperties.BlockType.STANDARD,
+	BlockProperties.BlockType.STANDARD,
+	BlockProperties.BlockType.STANDARD
+]
 @export var piece_prefab: PackedScene = preload("res://prefabs/block_piece.tscn")
 
 var _shape: Array[Array] = []
@@ -61,44 +67,74 @@ var _grabbed := false
 
 
 func _ready() -> void:
+	GameStoreInstance.on_tetromino_placeable.connect(on_placeable)
+	GameStoreInstance.on_drop.connect(on_drop)
+
+	# Prototype only
+	if GameStoreInstance.block_pool_instance == null:
+		GameStoreInstance.block_pool_initiated.connect(build)
+	else:
+		build()
+
+
+func build():
+	# Init shape with rotation
 	_shape.assign(SHAPE_BY_TYPE[shape_type].map(func (row: Array) -> Array: return row.duplicate()))
 	_nbBlocks = _shape.reduce(func (sum: int, row: Array) -> int: return sum + row.count(1), 0)
 	for i in randi_range(0, 3):
 		_shape = _rotate_shape(_shape)
 
+	# Initialize block properties and ids
+	while block_types.size() < _nbBlocks:
+		block_types.append(BlockProperties.BlockType.STANDARD)
+	var block_props: Array[BlockProperties] = []
+	block_types.map(func (type: BlockProperties.BlockType):
+		block_props.append(GameStoreInstance.block_pool_instance.generate_block(type)))
+	var block_idx := 0
+	for row in _shape:
+		for cell_idx in row.size():
+			if row[cell_idx] == 1:
+				row[cell_idx] = block_props[block_idx].id
+				block_idx += 1
+			else:
+				row[cell_idx] = -1
+
+	# Instantiate blocks
 	for i in _nbBlocks:
 		var block: BlockPiece = piece_prefab.instantiate()
 		add_child(block)
+		block.block_id = block_props[i].id
+		block.set_type(block_props[i].type)
 		block.on_grabbed.connect(on_grab)
 
 	_build_shape()
-
-	GameStoreInstance.on_tetromino_placeable.connect(on_placeable)
-	GameStoreInstance.on_drop.connect(on_drop)
 
 func on_grab():
 	_grabbed = true
 	GameStoreInstance.grab_tetromino(_shape)
 
 func _build_shape() -> void:
-	var child_idx: int = 0
+	var nb_moved: int = 0
 	var center := floori(float(_shape.size()) / 2.0)
 
 	for row_idx in _shape.size():
 		for col_idx: int in _shape.size():
-			var has_block: bool = _shape[row_idx][col_idx] == 1
+			var has_block: bool = _shape[row_idx][col_idx] >= 0
 			if has_block:
-				var block: Node2D = get_child(child_idx)
+				var block_id: int = _shape[row_idx][col_idx]
+				var block_idx: int = get_children().find_custom(func (b: BlockPiece): return b.block_id == block_id)
+				assert(block_idx != -1, "ERROR: Block % not instantiated" % block_id)
+				var block: Node2D = get_child(block_idx)
 				block.position.x = (col_idx - center) * BlockPiece.BLOCK_SIZE
 				block.position.y = (row_idx - center) * BlockPiece.BLOCK_SIZE
 
-				child_idx += 1
-				if child_idx >= _nbBlocks: return
+				nb_moved += 1
+				if nb_moved >= _nbBlocks: return
 
 
 func _rotate_shape(shape: Array[Array]) -> Array[Array]:
 	var rotated_shape: Array[Array] = []
-	rotated_shape.assign(shape.map(func (row: Array): return row.map(func (_v): return 0)))
+	rotated_shape.assign(shape.map(func (row: Array): return row.map(func (_v): return -1)))
 
 	for y in _shape.size():
 		var row: Array = shape[y]

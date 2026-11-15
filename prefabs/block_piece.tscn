@@ -1,17 +1,39 @@
-[gd_scene format=3 uid="uid://b4d24x2fd77ff"]
+[gd_scene format=3 uid="uid://d1xwthewqflss"]
 
-[ext_resource type="Script" uid="uid://cpoe5w7a2wc62" path="res://scripts/block_piece.gd" id="1_533b3"]
+[ext_resource type="Script" uid="uid://cpoe5w7a2wc62" path="res://scripts/block_piece.gd" id="1_al33w"]
+[ext_resource type="Texture2D" uid="uid://bxy12xt350mcn" path="res://sprites/blocks-atlas.png" id="2_mq8ty"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r30ga"]
-size = Vector2(20, 20)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtt52"]
+atlas = ExtResource("2_mq8ty")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bl6y"]
+atlas = ExtResource("2_mq8ty")
+region = Rect2(0, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6x54"]
+atlas = ExtResource("2_mq8ty")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewpai"]
+atlas = ExtResource("2_mq8ty")
+region = Rect2(20, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq8ty"]
+atlas = ExtResource("2_mq8ty")
+region = Rect2(0, 0, 20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
 [node name="BlockPiece" type="Area2D" unique_id=643376767]
-script = ExtResource("1_533b3")
+script = ExtResource("1_al33w")
+standardTexture = SubResource("AtlasTexture_gtt52")
+weakTexture = SubResource("AtlasTexture_3bl6y")
+strongTexture = SubResource("AtlasTexture_k6x54")
+goldTexture = SubResource("AtlasTexture_ewpai")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1736715273]
-texture = SubResource("PlaceholderTexture2D_r30ga")
+texture = SubResource("AtlasTexture_mq8ty")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522794635]
 shape = SubResource("RectangleShape2D_pvvjn")

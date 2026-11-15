@@ -57,5 +57,8 @@ func on_add_blocks(positions: Array[Vector2i]):
 	for block_pos in positions:
 		var global_pos := tilemap.map_to_local(block_pos) + tilemap.global_position
 		var block: BlockPiece = block_prefab.instantiate()
+		var props := GameStoreInstance.get_block_at(block_pos)
 		blocks_area.add_child(block)
+		block.block_id = props.id
+		block.set_type(props.type)
 		block.global_position = global_pos
