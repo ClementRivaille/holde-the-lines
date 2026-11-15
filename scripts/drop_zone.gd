@@ -7,6 +7,7 @@ class_name DropZone
 @onready var blocks_area: Node2D = $Blocks
 
 @export var preview_block_prefab: PackedScene = preload("res://prefabs/preview_block.tscn")
+@export var block_prefab: PackedScene = preload("res://prefabs/block_piece.tscn")
 
 var _is_cursor_inside := false
 
@@ -26,6 +27,7 @@ func _ready() -> void:
 			tilemap.set_cell(Vector2i(x, y), 0, Vector2i(0,0))
 
 	GameStoreInstance.on_tetromino_placeable.connect(on_block_placeable)
+	GameStoreInstance.blocks_added.connect(on_add_blocks)
 
 func on_mouse_enter():
 	_is_cursor_inside = true
@@ -50,3 +52,10 @@ func on_block_placeable(placeable: bool, positions: Array[Vector2i]):
 				var preview: PreviewBlock = preview_block_prefab.instantiate()
 				preview_area.add_child(preview)
 				preview.global_position = global_pos
+
+func on_add_blocks(positions: Array[Vector2i]):
+	for block_pos in positions:
+		var global_pos := tilemap.map_to_local(block_pos) + tilemap.global_position
+		var block: BlockPiece = block_prefab.instantiate()
+		blocks_area.add_child(block)
+		block.global_position = global_pos

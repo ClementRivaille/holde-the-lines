@@ -5,9 +5,10 @@ const GRID_WIDTH := 10
 const GRID_HEIGHT := 20
 
 signal on_drag
-signal on_drop
+signal on_drop(placed: bool)
 signal on_tetromino_placeable(value: bool, positions: Array[Vector2i])
 signal cursor_pos_changed(value: Vector2i)
+signal blocks_added(positions: Array[Vector2i])
 
 var grid_content: Array[Array]
 
@@ -28,7 +29,16 @@ func grab_tetromino(tetromino: Array[Array]):
 
 func release_tetromino():
 	is_dragging = false
-	on_drop.emit()
+	hand_tetromino = []
+	on_drop.emit(can_be_placed)
+
+	if can_be_placed:
+		for block in droped_blocks:
+			grid_content[block.y][block.x] = 1
+		blocks_added.emit(droped_blocks.duplicate())
+		droped_blocks = []
+		can_be_placed = false
+		on_tetromino_placeable.emit(false, [])
 
 func update_cursor_position(position: Vector2i):
 	if position.x == cursor_position.x && position.y == cursor_position.y:
@@ -54,9 +64,12 @@ func check_tetromino_drop_position(cursor_x: int, cursor_y: int):
 	# Find the highest row from cursor when block can fall
 	var target_row := cursor_y
 	var candidate: Array[Vector2i] = []
-	for row in range(target_row, GRID_HEIGHT):
+
+	var has_conflict := false
+	var row := target_row
+	while row < GRID_HEIGHT && !has_conflict:
 		var center_pos: Vector2 = Vector2(cursor_x, row)
-		var has_conflict := false
+		var is_outside := false
 			# Check validity of every cell of tetromino
 		for row_test in range(hand_tetromino.size()):
 			var cell_row := center_pos.y - center + row_test
@@ -66,14 +79,14 @@ func check_tetromino_drop_position(cursor_x: int, cursor_y: int):
 				if tetromino_cell > 0:
 					# Out of drop zone
 					if cell_col < 0 || cell_col >= GRID_WIDTH || cell_row < 0 || cell_row >= GRID_HEIGHT:
-						has_conflict = true
+						is_outside = true
 						continue
 					# Conflict
 					var cell: int = grid_content[cell_row][cell_col]
 					if cell > 0:
 						has_conflict = true
 
-		if !has_conflict:
+		if !has_conflict && !is_outside:
 			# Write a valid candidate position
 			candidate = []
 			for row_candidate in range(hand_tetromino.size()):
@@ -82,6 +95,8 @@ func check_tetromino_drop_position(cursor_x: int, cursor_y: int):
 					var cell_col = center_pos.x - center + col_candidate
 					if (hand_tetromino[row_candidate][col_candidate] > 0):
 						candidate.append(Vector2(cell_col, cell_row))
+
+		row += 1
 
 	can_be_placed = candidate.size() > 0
 	droped_blocks = candidate

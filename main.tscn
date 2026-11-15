@@ -61,6 +61,7 @@ metadata/_custom_type_script = "uid://cehnya550v65k"
 [node name="UICanva" type="CanvasLayer" parent="." unique_id=468360717]
 
 [node name="Debug" type="Control" parent="UICanva" unique_id=1219506513]
+visible = false
 layout_mode = 3
 anchor_right = 0.16666667
 anchor_bottom = 0.18518518

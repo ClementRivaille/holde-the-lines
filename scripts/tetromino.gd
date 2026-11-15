@@ -74,6 +74,7 @@ func _ready() -> void:
 	_build_shape()
 
 	GameStoreInstance.on_tetromino_placeable.connect(on_placeable)
+	GameStoreInstance.on_drop.connect(on_drop)
 
 func on_grab():
 	_grabbed = true
@@ -114,15 +115,27 @@ func _input(event: InputEvent) -> void:
 	if _grabbed && event is InputEventMouseButton:
 		var mouse_event :=  event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT &&	mouse_event.is_released():
-			_grabbed = false
-			GameStoreInstance.release_tetromino()
+			_release()
 		elif mouse_event.button_index == MOUSE_BUTTON_RIGHT && mouse_event.is_pressed():
-			_shape = _rotate_shape(_shape)
-			_build_shape()
-			GameStoreInstance.update_hand_tetromino(_shape)
+			_rotate()
+
+func _release():
+	GameStoreInstance.release_tetromino()
+
+func _rotate():
+	_shape = _rotate_shape(_shape)
+	_build_shape()
+	GameStoreInstance.update_hand_tetromino(_shape)
 
 func on_placeable(placeable: bool, _target: Array[Vector2i]):
 	if !_grabbed: return
 
 	for block: BlockPiece in get_children():
 		block.set_placeable(placeable)
+
+func on_drop(placed: bool):
+	if !_grabbed: return
+
+	_grabbed = false
+	if placed:
+		queue_free()
