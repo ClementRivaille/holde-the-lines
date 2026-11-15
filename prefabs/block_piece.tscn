@@ -25,6 +25,14 @@ region = Rect2(0, 0, 20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
+[sub_resource type="Gradient" id="Gradient_mq8ty"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pvvjn"]
+gradient = SubResource("Gradient_mq8ty")
+width = 20
+height = 20
+
 [node name="BlockPiece" type="Area2D" unique_id=643376767]
 script = ExtResource("1_al33w")
 standardTexture = SubResource("AtlasTexture_gtt52")
@@ -37,3 +45,7 @@ texture = SubResource("AtlasTexture_mq8ty")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522794635]
 shape = SubResource("RectangleShape2D_pvvjn")
+
+[node name="ValidSprite" type="Sprite2D" parent="." unique_id=851190319]
+modulate = Color(1, 1, 1, 0)
+texture = SubResource("GradientTexture2D_pvvjn")

@@ -28,6 +28,9 @@ func _ready() -> void:
 
 	GameStoreInstance.on_tetromino_placeable.connect(on_block_placeable)
 	GameStoreInstance.blocks_added.connect(on_add_blocks)
+	GameStoreInstance.lines_validated.connect(on_lines_validated)
+	GameStoreInstance.remove_blocks.connect(on_blocks_removed)
+	GameStoreInstance.move_block.connect(on_block_moved)
 
 func on_mouse_enter():
 	_is_cursor_inside = true
@@ -62,3 +65,23 @@ func on_add_blocks(positions: Array[Vector2i]):
 		block.block_id = props.id
 		block.set_type(props.type)
 		block.global_position = global_pos
+
+func on_lines_validated(_rows: Array[int], blocks: Array[int]):
+	for block_id in blocks:
+		var block := _get_block_instance(block_id)
+		block.validate_line()
+
+func on_blocks_removed(blocks: Array[int]):
+	for block_id in blocks:
+		var block := _get_block_instance(block_id)
+		block.queue_free()
+
+func on_block_moved(block_id: int, to_position: Vector2i):
+	var block := _get_block_instance(block_id)
+	var global_pos := tilemap.map_to_local(to_position) + tilemap.global_position
+	block.global_position = global_pos
+
+func _get_block_instance(block_id: int) -> BlockPiece:
+	var block_idx: int = blocks_area.get_children().find_custom(func (b: BlockPiece): return b.block_id == block_id)
+	assert(block_idx != -1, "ERROR: block %s not found in instanciated blocks"%block_id)
+	return blocks_area.get_child(block_idx)

@@ -11,7 +11,9 @@ signal on_drop(placed: bool)
 signal on_tetromino_placeable(value: bool, positions: Array[Vector2i])
 signal cursor_pos_changed(value: Vector2i)
 signal blocks_added(positions: Array[Vector2i])
-
+signal lines_validated(rows: Array[int], blocks: Array[int])
+signal remove_blocks(ids: Array[int])
+signal move_block(id: int, position: Vector2i)
 
 var grid_content: Array[Array]
 
@@ -50,7 +52,8 @@ func release_tetromino():
 		blocks_added.emit(droped_blocks.duplicate())
 		droped_blocks = []
 		can_be_placed = false
-		on_tetromino_placeable.emit(false, [])
+		on_tetromino_placeable.emit(false, droped_blocks)
+		check_line()
 
 	hand_tetromino = []
 
@@ -132,3 +135,45 @@ func get_block_position(id: int) -> Vector2i:
 			if grid_content[y][x] == id:
 				return Vector2i(x, y)
 	return Vector2i(-1, -1)
+
+func check_line():
+	var lines: Array[int] = []
+
+	for row_idx in grid_content.size():
+		var row: Array = grid_content[row_idx]
+		if row.all(func (value: int): return value >= 0):
+			lines.append(row_idx)
+
+	if lines.size() > 0:
+		var blocks: Array[int] = []
+		for row_idx in lines:
+			grid_content[row_idx].map(func (id: int): blocks.append(id))
+		lines_validated.emit(lines, blocks)
+
+		# Wait for animation before removing blocks
+		await get_tree().create_timer(BlockPiece.LINE_VALIDATION_DURATION).timeout
+
+		# Delete lines
+		for row_idx in lines:
+			var row: Array = grid_content[row_idx]
+			for col in row.size():
+				row[col] = -1
+		remove_blocks.emit(blocks)
+
+		# Move blocks above down, starting from the lowest line
+		var movements: Dictionary[int, Vector2i] = {}
+		var row_moved := 0
+		lines.reverse()
+		for line_idx in lines:
+			for row_idx in range(line_idx - 1 + row_moved, -1, -1):
+				if row_idx == GRID_HEIGHT - 1: continue
+				var row: Array = grid_content[row_idx]
+				var lower_row: Array = grid_content[row_idx + 1]
+				for col in row.size():
+					if row[col] >= 0:
+						lower_row[col] = row[col]
+						row[col] = -1
+						movements[lower_row[col]] = Vector2i(col, row_idx + 1)
+			row_moved += 1
+		for block_id in movements.keys():
+			move_block.emit(block_id, movements[block_id])

@@ -17,5 +17,15 @@ func generate_block(type: BlockProperties.BlockType) -> BlockProperties:
 
 	return block
 
+func delete_block(id: int):
+	var index := instanced_blocks.find_custom(func (b: BlockProperties): return b.id == id)
+	if index == -1: return
+
+	instanced_blocks.remove_at(index)
+
+func on_blocks_removed(blocks: Array[int]):
+	blocks.map(func(id: int): delete_block(id))
+
 func _ready() -> void:
 	GameStoreInstance.register_block_pool(self)
+	GameStoreInstance.remove_blocks.connect(on_blocks_removed)
