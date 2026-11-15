@@ -31,10 +31,15 @@ var Z_SHAPE: Array[Array] = [
 	[1,1,0],
 	[0,1,1]
 ]
+var I_SHAPE: Array[Array] = [
+	[0,0,0,0,0],
+	[0,0,1,0,0],
+	[0,0,1,0,0],
+	[0,0,1,0,0],
+	[0,0,1,0,0]
+]
 
-var SHAPE_WIDTH: int = 3
-
-enum SHAPE_TYPE {	T, SQUARE, L, J, S, Z }
+enum SHAPE_TYPE {	T, SQUARE, L, J, S, Z, I }
 
 var SHAPE_BY_TYPE: Dictionary[SHAPE_TYPE, Array] = {
 	SHAPE_TYPE.T: T_SHAPE,
@@ -43,6 +48,7 @@ var SHAPE_BY_TYPE: Dictionary[SHAPE_TYPE, Array] = {
 	SHAPE_TYPE.J: J_SHAPE,
 	SHAPE_TYPE.S: S_SHAPE,
 	SHAPE_TYPE.Z: Z_SHAPE,
+	SHAPE_TYPE.I: I_SHAPE,
 }
 
 @export var shape_type: SHAPE_TYPE = SHAPE_TYPE.T
@@ -71,13 +77,14 @@ func _ready() -> void:
 
 func on_grab():
 	_grabbed = true
+	GameStoreInstance.grab_tetromino(_shape)
 
 func _build_shape() -> void:
 	var child_idx: int = 0
-	var center := floori(float(SHAPE_WIDTH) / 2.0)
+	var center := floori(float(_shape.size()) / 2.0)
 
-	for row_idx in SHAPE_WIDTH:
-		for col_idx: int in SHAPE_WIDTH:
+	for row_idx in _shape.size():
+		for col_idx: int in _shape.size():
 			var has_block: bool = _shape[row_idx][col_idx] == 1
 			if has_block:
 				var block: Node2D = get_child(child_idx)
@@ -91,11 +98,11 @@ func _build_shape() -> void:
 func _rotate_shape(shape: Array[Array]) -> Array[Array]:
 	var rotated_shape: Array[Array] = [[0,0,0], [0,0,0], [0,0,0]]
 
-	for y in SHAPE_WIDTH:
+	for y in _shape.size():
 		var row: Array = shape[y]
-		for x in SHAPE_WIDTH:
+		for x in _shape.size():
 			var value:int = row[x]
-			rotated_shape[x][SHAPE_WIDTH - 1 - y] = value
+			rotated_shape[x][_shape.size() - 1 - y] = value
 
 	return rotated_shape
 
@@ -103,12 +110,12 @@ func _physics_process(_delta: float) -> void:
 	if _grabbed:
 		global_position = get_viewport().get_mouse_position()
 
-
 func _input(event: InputEvent) -> void:
 	if _grabbed && event is InputEventMouseButton:
 		var mouse_event :=  event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT &&	mouse_event.is_released():
 			_grabbed = false
+			GameStoreInstance.release_tetromino()
 		elif mouse_event.button_index == MOUSE_BUTTON_RIGHT && mouse_event.is_pressed():
 			_shape = _rotate_shape(_shape)
 			_build_shape()

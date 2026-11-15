@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Holde the Lines"
+config/name="Hold the Lines"
 run/main_scene="uid://d2e2y0fmljsua"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameStoreInstance="*uid://2kc1dfs1pxrb"
 
 [display]
 

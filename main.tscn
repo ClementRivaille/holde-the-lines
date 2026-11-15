@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://d2e2y0fmljsua"]
 
 [ext_resource type="Script" uid="uid://cehnya550v65k" path="res://scripts/tetromino.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://byja66fyj1qlr" path="res://scripts/drop_zone.gd" id="2_0xm2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
 [node name="Node2D" type="Node2D" unique_id=626972420]
 
@@ -26,3 +29,9 @@ position = Vector2(300, 207)
 script = ExtResource("1_ig7tw")
 shape_type = 5
 metadata/_custom_type_script = "uid://cehnya550v65k"
+
+[node name="DropZone" type="Area2D" parent="." unique_id=1487723071]
+script = ExtResource("2_0xm2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DropZone" unique_id=2144460545]
+shape = SubResource("RectangleShape2D_pvvjn")
