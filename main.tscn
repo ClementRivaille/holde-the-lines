@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d2e2y0fmljsua"]
+[gd_scene format=4 uid="uid://d2e2y0fmljsua"]
 
 [ext_resource type="Texture2D" uid="uid://cy23wn1i66thw" path="res://sprites/background.png" id="1_272bh"]
 [ext_resource type="Script" uid="uid://bcw3cc6b82pin" path="res://scripts/block_pool.gd" id="1_lquwl"]
@@ -6,37 +6,58 @@
 [ext_resource type="Texture2D" uid="uid://pxhkb0lu558b" path="res://sprites/grid-tileset.png" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://tgil3yun5noc" path="res://scenes/shop_button.tscn" id="6_7mycd"]
+[ext_resource type="Texture2D" uid="uid://bsomw0no5st3o" path="res://sprites/screen.png" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://146icgbv5wmc" path="res://sprites/city.png" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://due88n6alwvt0" path="res://sprites/price-tag.png" id="8_efxa6"]
+[ext_resource type="Texture2D" uid="uid://cvg3krpsf0swx" path="res://sprites/shield.png" id="9_4c57u"]
+[ext_resource type="Texture2D" uid="uid://30oun6vwe8xc" path="res://sprites/border-white.png" id="10_efxa6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("3_h2yge")
-texture_region_size = Vector2i(20, 20)
+texture_region_size = Vector2i(48, 48)
 0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_pvvjn"]
 tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 
+[sub_resource type="Gradient" id="Gradient_dg77c"]
+offsets = PackedFloat32Array(0, 0.52554744, 1)
+colors = PackedColorArray(0.44705883, 0.30588236, 0.8156863, 1, 0.5836626, 0.4881816, 0.92756397, 1, 0.44705883, 0.30588236, 0.8156863, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pvvjn"]
+gradient = SubResource("Gradient_dg77c")
+
 [node name="Main" type="Node2D" unique_id=626972420]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1727488942]
+[node name="Background" type="Sprite2D" parent="." unique_id=1727488942]
 position = Vector2(960, 540)
 texture = ExtResource("1_272bh")
+
+[node name="City" type="Sprite2D" parent="." unique_id=344714053]
+position = Vector2(960, 1102)
+texture = ExtResource("8_5vw27")
 
 [node name="BlockPool" type="Node2D" parent="." unique_id=757010766]
 script = ExtResource("1_lquwl")
 
 [node name="DropZone" type="Area2D" parent="." unique_id=1487723071]
-position = Vector2(960, 540)
+position = Vector2(962, 496)
 script = ExtResource("2_0xm2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DropZone" unique_id=2144460545]
 shape = SubResource("RectangleShape2D_pvvjn")
 
 [node name="TileMap" type="TileMapLayer" parent="DropZone" unique_id=531501595]
-self_modulate = Color(1, 1, 1, 0.28235295)
+self_modulate = Color(1, 1, 1, 0.23529412)
 use_parent_material = true
+position = Vector2(-240, -480)
+tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAD//wEAAAABAAAAAAD//wIAAAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD//woAAAABAAAAAAD//wsAAAABAAAAAAD//wwAAAABAAAAAAD//w0AAAABAAAAAAD//w4AAAABAAAAAAD//xAAAAABAAAAAAD//w8AAAABAAAAAAD//xEAAAABAAAAAAD//xIAAAABAAAAAAD//xMAAAABAAAAAAAAABQAAAABAAEAAAABABQAAAABAAEAAAACABQAAAABAAEAAAADABQAAAABAAEAAAAEABQAAAABAAEAAAAFABQAAAABAAEAAAAGABQAAAABAAEAAAAHABQAAAABAAEAAAAIABQAAAABAAEAAAAJABQAAAABAAEAAAAKABMAAAAAAAAAAAAKABIAAAAAAAAAAAAKABEAAAAAAAAAAAAKABAAAAAAAAAAAAAKAA8AAAAAAAAAAAAKAA4AAAAAAAAAAAAKAA0AAAAAAAAAAAAKAAwAAAAAAAAAAAAKAAsAAAAAAAAAAAAKAAoAAAAAAAAAAAAKAAkAAAAAAAAAAAAKAAgAAAAAAAAAAAAKAAcAAAAAAAAAAAAKAAYAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAP//AAAAAAEAAAABAP//AAAAAAEAAAACAP//AAAAAAEAAAADAP//AAAAAAEAAAAEAP//AAAAAAEAAAAFAP//AAAAAAEAAAAGAP//AAAAAAEAAAAHAP//AAAAAAEAAAAIAP//AAAAAAEAAAAJAP//AAAAAAEAAAA=")
 tile_set = SubResource("TileSet_pvvjn")
 
 [node name="Preview" type="Node2D" parent="DropZone" unique_id=1893210135]
@@ -65,10 +86,11 @@ text = "Blabla"
 [node name="Shop" type="Control" parent="UICanva" unique_id=174422460]
 layout_mode = 3
 anchor_top = 0.12222222
-anchor_right = 0.367
+anchor_right = 0.3678958
 anchor_bottom = 0.9011852
-offset_right = 0.6399994
-offset_bottom = -0.2800064
+offset_top = -5.0
+offset_right = 0.64001465
+offset_bottom = -5.2800293
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UICanva/Shop" unique_id=1668216649]
@@ -90,6 +112,20 @@ layout_mode = 2
 [node name="ShopButton2" parent="UICanva/Shop/HBoxContainer" unique_id=1197677018 instance=ExtResource("6_7mycd")]
 layout_mode = 2
 
+[node name="PriceTag1" type="TextureRect" parent="UICanva/Shop" unique_id=980910259]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.278
+anchor_right = 0.5
+anchor_bottom = 0.278
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 66.201996
+texture = ExtResource("8_efxa6")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="UICanva/Shop" unique_id=335189001]
 propagate_maximum_size = false
 layout_mode = 1
@@ -110,6 +146,20 @@ layout_mode = 2
 [node name="ShopButton2" parent="UICanva/Shop/HBoxContainer2" unique_id=634468660 instance=ExtResource("6_7mycd")]
 layout_mode = 2
 
+[node name="PriceTag2" type="TextureRect" parent="UICanva/Shop" unique_id=1583308028]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.629
+anchor_right = 0.5
+anchor_bottom = 0.629
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 66.20203
+texture = ExtResource("8_efxa6")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="UICanva/Shop" unique_id=926217113]
 propagate_maximum_size = false
 layout_mode = 1
@@ -117,6 +167,8 @@ anchors_preset = -1
 anchor_top = 0.85
 anchor_right = 1.0
 anchor_bottom = 0.85
+offset_top = -106.0
+offset_bottom = 106.0
 grow_vertical = 2
 theme_override_constants/separation = 60
 alignment = 1
@@ -127,3 +179,98 @@ layout_mode = 2
 
 [node name="ShopButton2" parent="UICanva/Shop/HBoxContainer3" unique_id=1479928070 instance=ExtResource("6_7mycd")]
 layout_mode = 2
+
+[node name="PriceTag3" type="TextureRect" parent="UICanva/Shop" unique_id=751346032]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.979
+anchor_right = 0.5
+anchor_bottom = 0.979
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 66.201996
+texture = ExtResource("8_efxa6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MoneyScreen" type="NinePatchRect" parent="UICanva" unique_id=173446104]
+anchors_preset = -1
+anchor_left = 0.05
+anchor_right = 0.35
+anchor_bottom = 0.12222222
+offset_top = -57.0
+texture = ExtResource("7_272bh")
+region_rect = Rect2(0, 0, 128, 128)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+metadata/_edit_use_anchors_ = true
+
+[node name="ShieldLevel" type="Control" parent="UICanva" unique_id=237316184]
+layout_mode = 3
+anchor_left = 0.654
+anchor_right = 0.731
+anchor_bottom = 0.91
+offset_top = 33.0
+offset_right = 0.47998047
+
+[node name="Icon" type="TextureRect" parent="UICanva/ShieldLevel" unique_id=943510498]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 114.0
+texture = ExtResource("9_4c57u")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Border" type="NinePatchRect" parent="UICanva/ShieldLevel" unique_id=2054419821]
+self_modulate = Color(1, 1, 1, 0.22745098)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_bottom = 1.0
+offset_top = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_efxa6")
+patch_margin_left = 6
+patch_margin_top = 7
+patch_margin_right = 6
+patch_margin_bottom = 7
+
+[node name="HealthBar" type="TextureRect" parent="UICanva/ShieldLevel/Border" unique_id=1742017974]
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_pvvjn")
+expand_mode = 1
+
+[node name="Screen" type="NinePatchRect" parent="UICanva/ShieldLevel" unique_id=900186025]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.1481961
+anchor_top = 0.75530875
+anchor_right = 4.149
+anchor_bottom = 0.92800003
+offset_left = 0.019546509
+offset_top = -41.392273
+offset_right = -0.059936523
+offset_bottom = -0.32781982
+texture = ExtResource("7_272bh")
+region_rect = Rect2(0, 0, 128, 128)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+metadata/_edit_use_anchors_ = true

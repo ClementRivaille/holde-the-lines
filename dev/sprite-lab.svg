@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#373737"
      inkscape:document-units="mm"
-     inkscape:zoom="0.12693053"
-     inkscape:cx="1197.5055"
-     inkscape:cy="-1622.935"
+     inkscape:zoom="2.0308885"
+     inkscape:cx="134.91632"
+     inkscape:cy="39.884022"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
@@ -602,7 +602,7 @@
        x2="3298.8973"
        y2="1037.9693"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(208.77562,-114.23572)" />
+       gradientTransform="translate(316.0059,558.39015)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient6"
@@ -618,7 +618,7 @@
        xlink:href="#linearGradient3"
        id="linearGradient9"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.99104272,0,0,0.99104272,1956.0142,-1108.9673)"
+       gradientTransform="matrix(0.13900971,0,0,0.13900971,-275.1809,-116.38219)"
        x1="1979.5807"
        y1="1037.9693"
        x2="2541.4448"
@@ -713,7 +713,7 @@
      id="layer1">
     <g
        id="g74"
-       transform="translate(-493.26623,-201.1263)">
+       transform="translate(-834.0038,-195.21756)">
       <path
          style="fill:#8483ff;fill-opacity:1;stroke:none;stroke-width:15.1181;stroke-opacity:1"
          d="M 377.42287,331.8294 558.84022,150.41207 H 377.42287 V 331.8294"
@@ -1583,8 +1583,8 @@
        id="rect2"
        width="1284.167"
        height="366.34213"
-       x="2205.9309"
-       y="740.56256"
+       x="2313.1611"
+       y="1413.1885"
        ry="122.11407" />
     <rect
        style="fill:url(#linearGradient8);stroke:none;stroke-width:35.1496;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -1598,16 +1598,16 @@
        inkscape:export-xdpi="95.940002"
        inkscape:export-ydpi="95.940002" />
     <rect
-       style="fill:#080808;fill-opacity:1;stroke:url(#linearGradient9);stroke-width:34.8348;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#080808;fill-opacity:1;stroke:url(#linearGradient9);stroke-width:4.88614;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect2-1"
-       width="515.40979"
-       height="515.40979"
-       x="3935.2803"
-       y="-261.82571"
-       ry="121.02026"
+       width="72.294533"
+       height="72.294533"
+       x="2.4430695"
+       y="2.4430695"
+       ry="16.975042"
        inkscape:export-filename="../sprites/screen.png"
-       inkscape:export-xdpi="95.940002"
-       inkscape:export-ydpi="95.940002" />
+       inkscape:export-xdpi="159.21001"
+       inkscape:export-ydpi="159.21001" />
     <rect
        style="fill:none;fill-opacity:1;stroke:#cecece;stroke-width:18.1417;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect9"

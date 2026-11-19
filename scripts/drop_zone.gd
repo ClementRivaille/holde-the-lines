@@ -22,9 +22,6 @@ func _ready() -> void:
 	mouse_exited.connect(on_mouse_exit)
 
 	tilemap.position = Vector2(-float(GameStore.GRID_WIDTH) / 2 * BlockPiece.BLOCK_SIZE, -float(GameStore.GRID_HEIGHT) / 2 * BlockPiece.BLOCK_SIZE)
-	for x in range(0, GameStore.GRID_WIDTH):
-		for y in range(0, GameStore.GRID_HEIGHT):
-			tilemap.set_cell(Vector2i(x, y), 0, Vector2i(0,0))
 
 	GameStoreInstance.on_tetromino_placeable.connect(on_block_placeable)
 	GameStoreInstance.blocks_added.connect(on_add_blocks)
