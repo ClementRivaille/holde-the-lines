@@ -3,8 +3,8 @@ class_name Tetromino
 
 var T_SHAPE: Array[Array] = [
 	[0,0,0],
-	[1,1,1],
-	[0,1,0]
+	[0,1,0],
+	[1,1,1]
 ]
 var SQUARE_SHAPE: Array[Array] = [
 	[0,0,0],
@@ -32,11 +32,11 @@ var Z_SHAPE: Array[Array] = [
 	[0,1,1]
 ]
 var I_SHAPE: Array[Array] = [
-	[0,0,0,0,0],
 	[0,0,1,0,0],
 	[0,0,1,0,0],
 	[0,0,1,0,0],
-	[0,0,1,0,0]
+	[0,0,1,0,0],
+	[0,0,0,0,0]
 ]
 
 enum SHAPE_TYPE {	T, SQUARE, L, J, S, Z, I }
@@ -73,8 +73,6 @@ func build():
 	# Init shape with rotation
 	_shape.assign(SHAPE_BY_TYPE[shape_type].map(func (row: Array) -> Array: return row.duplicate()))
 	_nbBlocks = _shape.reduce(func (sum: int, row: Array) -> int: return sum + row.count(1), 0)
-	for i in randi_range(0, 3):
-		_shape = _rotate_shape(_shape)
 
 	# Initialize block properties and ids
 	while block_types.size() < _nbBlocks:

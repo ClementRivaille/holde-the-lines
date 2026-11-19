@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://tgil3yun5noc"]
+
+[ext_resource type="Texture2D" uid="uid://bpy3qsefyuddu" path="res://sprites/shop-stand.png" id="1_g7nvd"]
+[ext_resource type="Script" uid="uid://c8nsgs82r0vqt" path="res://scripts/shop_button.gd" id="2_1oc1l"]
+
+[node name="ShopButton" type="Button" unique_id=1949536979]
+custom_minimum_size = Vector2(212, 212)
+action_mode = 0
+icon = ExtResource("1_g7nvd")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_1oc1l")
+metadata/_edit_use_anchors_ = true

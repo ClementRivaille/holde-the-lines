@@ -1,7 +1,7 @@
 extends Area2D
 class_name BlockPiece
 
-const BLOCK_SIZE: float = 20
+const BLOCK_SIZE: float = 48
 const LINE_VALIDATION_DURATION: float = .7
 
 @export var unplaceable_opacity: float = 0.5

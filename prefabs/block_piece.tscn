@@ -1,47 +1,31 @@
 [gd_scene format=3 uid="uid://d1xwthewqflss"]
 
 [ext_resource type="Script" uid="uid://cpoe5w7a2wc62" path="res://scripts/block_piece.gd" id="1_al33w"]
-[ext_resource type="Texture2D" uid="uid://bxy12xt350mcn" path="res://sprites/blocks-atlas.png" id="2_mq8ty"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gtt52"]
-atlas = ExtResource("2_mq8ty")
-region = Rect2(0, 0, 20, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3bl6y"]
-atlas = ExtResource("2_mq8ty")
-region = Rect2(0, 20, 20, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k6x54"]
-atlas = ExtResource("2_mq8ty")
-region = Rect2(20, 0, 20, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ewpai"]
-atlas = ExtResource("2_mq8ty")
-region = Rect2(20, 20, 20, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mq8ty"]
-atlas = ExtResource("2_mq8ty")
-region = Rect2(0, 0, 20, 20)
+[ext_resource type="Texture2D" uid="uid://brskhlwi083u7" path="res://sprites/block-standard.png" id="2_qtiyv"]
+[ext_resource type="Texture2D" uid="uid://cqivrmek7slww" path="res://sprites/block-weak.png" id="3_dqmjn"]
+[ext_resource type="Texture2D" uid="uid://cjy7saexqdy3x" path="res://sprites/block-strong.png" id="4_636eo"]
+[ext_resource type="Texture2D" uid="uid://dil6wqbwlpmfd" path="res://sprites/block-gold.png" id="5_70gk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
+size = Vector2(48, 48)
 
 [sub_resource type="Gradient" id="Gradient_mq8ty"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_pvvjn"]
 gradient = SubResource("Gradient_mq8ty")
-width = 20
-height = 20
+width = 48
+height = 48
 
 [node name="BlockPiece" type="Area2D" unique_id=643376767]
 script = ExtResource("1_al33w")
-standardTexture = SubResource("AtlasTexture_gtt52")
-weakTexture = SubResource("AtlasTexture_3bl6y")
-strongTexture = SubResource("AtlasTexture_k6x54")
-goldTexture = SubResource("AtlasTexture_ewpai")
+standardTexture = ExtResource("2_qtiyv")
+weakTexture = ExtResource("3_dqmjn")
+strongTexture = ExtResource("4_636eo")
+goldTexture = ExtResource("5_70gk4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1736715273]
-texture = SubResource("AtlasTexture_mq8ty")
+texture = ExtResource("2_qtiyv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522794635]
 shape = SubResource("RectangleShape2D_pvvjn")
