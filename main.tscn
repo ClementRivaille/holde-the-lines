@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://due88n6alwvt0" path="res://sprites/price-tag.png" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://cvg3krpsf0swx" path="res://sprites/shield.png" id="9_4c57u"]
 [ext_resource type="Texture2D" uid="uid://30oun6vwe8xc" path="res://sprites/border-white.png" id="10_efxa6"]
+[ext_resource type="PackedScene" uid="uid://ch7dvt54gm4n1" path="res://scenes/meteorites_spawner.tscn" id="12_dg77c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
@@ -35,8 +36,12 @@ gradient = SubResource("Gradient_dg77c")
 
 [node name="Main" type="Node2D" unique_id=626972420]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1353625902]
+position = Vector2(960, 540)
+
 [node name="Background" type="Sprite2D" parent="." unique_id=1727488942]
 position = Vector2(960, 540)
+scale = Vector2(1.05, 1.05)
 texture = ExtResource("1_272bh")
 
 [node name="City" type="Sprite2D" parent="." unique_id=344714053]
@@ -274,3 +279,19 @@ patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 metadata/_edit_use_anchors_ = true
+
+[node name="WavesSpawners" type="Node2D" parent="." unique_id=501644061]
+position = Vector2(0, -300)
+
+[node name="MeteoritesSpawner" parent="WavesSpawners" unique_id=1752229198 instance=ExtResource("12_dg77c")]
+position = Vector2(322, 0)
+max_delay = 0.2
+
+[node name="MeteoritesSpawner2" parent="WavesSpawners" unique_id=989649886 instance=ExtResource("12_dg77c")]
+position = Vector2(960, 0)
+max_delay = 0.25
+width = 480
+
+[node name="MeteoritesSpawner3" parent="WavesSpawners" unique_id=2094858174 instance=ExtResource("12_dg77c")]
+position = Vector2(1567, 0)
+max_delay = 0.2

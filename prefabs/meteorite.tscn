@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://x41nstnbs3tm"]
+
+[ext_resource type="Texture2D" uid="uid://clsy67sc2dvd7" path="res://sprites/meteor-1.png" id="1_v0ahd"]
+[ext_resource type="Script" uid="uid://jv4ddwapidi6" path="res://scripts/meteorite.gd" id="1_vu1tp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvvjn"]
+radius = 19.0
+
+[sub_resource type="Curve" id="Curve_pvvjn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), -0.028683223, 0.14193875, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_v0ahd"]
+offsets = PackedFloat32Array(0, 0.2, 0.537037, 1)
+colors = PackedColorArray(0.87954867, 0.44956392, 0.30069566, 0, 0.4893248, 0.16286725, 0.01582414, 1, 0.74, 0.26467335, 0.044400003, 1, 0.8390917, 0.85, 0.19550002, 1)
+
+[node name="Meteorite" type="RigidBody2D" unique_id=889899927]
+collision_mask = 0
+angular_velocity = 4.537856
+angular_damp_mode = 1
+script = ExtResource("1_vu1tp")
+collision_width = 0.6
+min_speed = 2.0
+max_speed = 6.0
+min_trail_alpha = 0.5
+max_trail_points = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1673168782]
+shape = SubResource("CircleShape2D_pvvjn")
+
+[node name="Trail" type="Line2D" parent="." unique_id=1850959907]
+show_behind_parent = true
+top_level = true
+width = 40.0
+width_curve = SubResource("Curve_pvvjn")
+gradient = SubResource("Gradient_v0ahd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=955088813]
+z_index = 1
+scale = Vector2(0.37711862, 0.37711862)
+texture = ExtResource("1_v0ahd")

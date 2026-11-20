@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ch7dvt54gm4n1"]
+
+[ext_resource type="Script" uid="uid://b8xcon62sx1c8" path="res://scripts/meteorites_spawner.gd" id="1_ripeb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r30ga"]
+size = Vector2(600, 126)
+
+[node name="MeteoritesSpawner" type="Node2D" unique_id=1752229198]
+script = ExtResource("1_ripeb")
+min_delay = 0.1
+max_delay = 0.3
+active = true
+
+[node name="DeleteZone" type="Area2D" parent="." unique_id=403376793]
+position = Vector2(20, 993)
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeleteZone" unique_id=346354907]
+position = Vector2(0, 507)
+shape = SubResource("RectangleShape2D_r30ga")
+
+[connection signal="body_entered" from="DeleteZone" to="." method="on_body_enter_delete_zone"]

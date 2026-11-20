@@ -13,7 +13,7 @@ config_version=5
 config/name="Hold the Lines"
 run/main_scene="uid://d2e2y0fmljsua"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://0xkpkgjvyhtd"
 
 [autoload]
 
