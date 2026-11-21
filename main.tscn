@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://cip24gjm0y340" path="res://scripts/wave_indicator.gd" id="12_w48qg"]
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
 [ext_resource type="Script" uid="uid://dsp1ygmupv0k3" path="res://scripts/shield_level.gd" id="15_82xsv"]
+[ext_resource type="Script" uid="uid://ccf4j0fqm2xb1" path="res://scripts/money_screen.gd" id="15_getpj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
 radius = 53.0
@@ -38,6 +39,10 @@ texture_region_size = Vector2i(48, 48)
 [sub_resource type="TileSet" id="TileSet_pvvjn"]
 tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jbi04"]
+font_size = 100
+font_color = Color(0.44705668, 0.86, 0.28379998, 1)
 
 [sub_resource type="Gradient" id="Gradient_dg77c"]
 offsets = PackedFloat32Array(0, 0.52554744, 1)
@@ -249,9 +254,10 @@ stretch_mode = 5
 
 [node name="MoneyScreen" type="NinePatchRect" parent="UICanva" unique_id=173446104]
 anchors_preset = -1
-anchor_left = 0.05
-anchor_right = 0.35
-anchor_bottom = 0.12222222
+anchor_left = 0.022916667
+anchor_top = 0.021296296
+anchor_right = 0.26770833
+anchor_bottom = 0.11018518
 offset_top = -57.0
 texture = ExtResource("7_272bh")
 region_rect = Rect2(0, 0, 128, 128)
@@ -259,7 +265,54 @@ patch_margin_left = 32
 patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
+script = ExtResource("15_getpj")
 metadata/_edit_use_anchors_ = true
+
+[node name="DolarSign" type="Label" parent="UICanva/MoneyScreen" unique_id=660351321]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.201
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "$"
+label_settings = SubResource("LabelSettings_jbi04")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Amount" type="Label" parent="UICanva/MoneyScreen" unique_id=2075841403]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.279
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "00000"
+label_settings = SubResource("LabelSettings_jbi04")
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DiffAnchor" type="Control" parent="UICanva/MoneyScreen" unique_id=665411094]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_right = 80.0
+
+[node name="UpdateTimer" type="Timer" parent="UICanva/MoneyScreen" unique_id=1838826386]
+wait_time = 0.05
+one_shot = true
 
 [node name="Screen" type="NinePatchRect" parent="UICanva" unique_id=900186025]
 anchors_preset = -1
@@ -396,7 +449,6 @@ max_delay = 0.2
 position = Vector2(960, 0)
 max_delay = 0.25
 width = 480
-active = true
 
 [node name="MeteoritesSpawner3" parent="WavesSpawners" unique_id=2094858174 instance=ExtResource("12_dg77c")]
 position = Vector2(1567, 0)

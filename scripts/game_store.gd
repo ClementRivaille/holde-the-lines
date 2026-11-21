@@ -5,6 +5,11 @@ const GRID_WIDTH := 10
 const GRID_HEIGHT := 20
 
 const CITY_HP_TOTAL := 200
+const MONEY_START := 50
+const LINE_GAIN := 10
+const LINE_BONUS := 1.5
+const GOLD_GAIN := 5
+
 
 signal block_pool_initiated
 
@@ -26,6 +31,8 @@ signal wave_started(number: int)
 signal wave_stopped
 signal time_to_wave_updated(remaining: float)
 
+signal money_updated(value: int, diff: int)
+
 var grid_content: Array[Array]
 
 var is_dragging := false
@@ -42,6 +49,8 @@ var time_to_wave := 1.0
 var wave_number := 0
 var wave_active := false
 
+var money := 0
+
 func _ready() -> void:
 	for row_idx in GRID_HEIGHT:
 		grid_content.append(range(GRID_WIDTH).map(func (_idx): return -1))
@@ -52,6 +61,7 @@ func init_game():
 	city_hp = CITY_HP_TOTAL
 	wave_number = 0
 	time_to_wave = 1.0
+	money = MONEY_START
 
 func grab_tetromino(tetromino: Array[Array]):
 	is_dragging = true
@@ -232,3 +242,8 @@ func stop_wave():
 func update_time_to_wave(value: float):
 	time_to_wave = value
 	time_to_wave_updated.emit(time_to_wave)
+
+func spend_money(price: int):
+	assert(price <= money, "Bought an overpriced item")
+	money = money - price
+	money_updated.emit(money, -price)

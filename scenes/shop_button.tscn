@@ -11,4 +11,5 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_1oc1l")
+alpha_disabled = 0.3
 metadata/_edit_use_anchors_ = true
