@@ -40,7 +40,7 @@ func on_delete_meteorite(meteorite: Meteorite):
 	meteorite.queue_free()
 	if _wave_ending:
 		if meteorites_parent.get_children().size() == 1:
-			_wave_ending == false
+			_wave_ending = false
 			await get_tree().create_timer(end_wave_delay).timeout
 			GameStoreInstance.end_wave()
 

@@ -18,6 +18,7 @@ config/icon="uid://0xkpkgjvyhtd"
 [autoload]
 
 GameStoreInstance="*uid://2kc1dfs1pxrb"
+AnimCoordinator="*uid://bedm4nscky7ov"
 
 [display]
 

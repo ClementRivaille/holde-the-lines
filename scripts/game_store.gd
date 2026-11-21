@@ -189,8 +189,11 @@ func check_line():
 		var money_gain := 0
 		for i in lines.size():
 			money_gain += roundi(float(LINE_GAIN) * LINE_BONUS**i )
+			AnimCoordinator.queue_animation(
+				AnimationProperties.new(AnimationProperties.AnimationKind.LINE, -1, lines[i]))
 		money += money_gain
 		money_updated.emit(money, money_gain)
+		AnimCoordinator.play_queued_animations()
 
 		# Wait for animation before removing blocks
 		await get_tree().create_timer(BlockPiece.LINE_VALIDATION_DURATION).timeout
@@ -249,6 +252,7 @@ func stop_wave():
 
 func end_wave():
 	var gain := CITY_INCOME
+	AnimCoordinator.queue_animation(AnimationProperties.new(AnimationProperties.AnimationKind.CITY_INCOME))
 	for row_idx in range(grid_content.size() - 1, -1, -1):
 		var row := grid_content[row_idx]
 		for id in row:
@@ -256,10 +260,12 @@ func end_wave():
 				var block := block_pool_instance.get_block_by_id(id)
 				if block.type == BlockProperties.BlockType.GOLD:
 					gain += GOLD_GAIN
+					AnimCoordinator.queue_animation(AnimationProperties.new(AnimationProperties.AnimationKind.GOLD_BLOCK, block.id))
 
 	money += gain
 	money_updated.emit(money, gain)
 	wave_ended.emit()
+	AnimCoordinator.play_queued_animations()
 
 func update_time_to_wave(value: float):
 	time_to_wave = value

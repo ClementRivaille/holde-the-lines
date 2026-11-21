@@ -31,6 +31,7 @@ func _ready() -> void:
 	GameStoreInstance.move_block.connect(on_block_moved)
 	GameStoreInstance.damage_block.connect(on_block_damaged)
 	GameStoreInstance.destroy_block.connect(on_block_destroyed)
+	AnimCoordinator.should_play_anim.connect(on_animation)
 
 func on_mouse_enter():
 	_is_cursor_inside = true
@@ -99,3 +100,12 @@ func _get_block_instance(block_id: int) -> BlockPiece:
 	var block_idx: int = blocks_area.get_children().find_custom(func (b: BlockPiece): return b.block_id == block_id)
 	assert(block_idx != -1, "ERROR: block %s not found in instanciated blocks"%block_id)
 	return blocks_area.get_child(block_idx)
+
+func on_animation(anim: AnimationProperties):
+	if anim.kind == AnimationProperties.AnimationKind.GOLD_BLOCK:
+		if !GameStoreInstance.block_pool_instance.block_exists(anim.block_id): return
+		var block := _get_block_instance(anim.block_id)
+		AnimCoordinator.play_gold_animation(block.global_position)
+	elif anim.kind == AnimationProperties.AnimationKind.LINE:
+		var global_pos := tilemap.map_to_local(Vector2i(GameStore.GRID_WIDTH / 2, anim.row_idx)) + tilemap.global_position
+		AnimCoordinator.play_gold_animation(global_pos, true)

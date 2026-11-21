@@ -7,6 +7,7 @@ class_name CityDome
 @export var damage_modulate: Color = Color.RED
 @export_range(0.0, 1.0, 0.05) var hit_duration: float = 1.0
 @export var cracks_textures: Array[Texture2D]
+@export var coins_offset := 100.0
 
 var _tween: Tween = null
 
@@ -14,6 +15,7 @@ var _tween: Tween = null
 func _ready() -> void:
 	cracks.visible = false
 	GameStoreInstance.city_damaged.connect(on_city_damaged)
+	AnimCoordinator.should_play_anim.connect(on_animation)
 
 func on_city_damaged(hp: int):
 	if _tween != null && _tween.is_running():
@@ -29,3 +31,7 @@ func on_city_damaged(hp: int):
 	if crack_index >= 0:
 		cracks.visible = true
 		cracks.texture = cracks_textures[min(crack_index, cracks_textures.size() - 1)]
+
+func on_animation(anim: AnimationProperties):
+	if anim.kind == AnimationProperties.AnimationKind.CITY_INCOME:
+		AnimCoordinator.play_gold_animation(Vector2(global_position.x, global_position.y - coins_offset), true)
