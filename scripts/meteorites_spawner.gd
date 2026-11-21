@@ -50,6 +50,8 @@ func spawn_meteorite():
 
 	var meteorite: Meteorite = meteorite_prefab.instantiate()
 	meteorites_parent.add_child(meteorite)
+	var difficulty := GameStoreInstance.get_current_difficulty()
+	meteorite.set_strength(randf_range(difficulty.min_meteorite_strength, difficulty.max_meteorite_strength))
 	meteorite.on_delete.connect(on_delete_meteorite)
 	meteorite.on_explode.connect(on_meteorite_explode)
 

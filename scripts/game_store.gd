@@ -53,6 +53,8 @@ var wave_active := false
 
 var money := 0
 
+var difficulty_settings: DifficultySettings = preload("res://resources/game_difficulty.tres")
+
 func _ready() -> void:
 	for row_idx in GRID_HEIGHT:
 		grid_content.append(range(GRID_WIDTH).map(func (_idx): return -1))
@@ -275,3 +277,6 @@ func spend_money(price: int):
 	assert(price <= money, "Bought an overpriced item")
 	money = money - price
 	money_updated.emit(money, -price)
+
+func get_current_difficulty() -> WaveDifficulty:
+	return difficulty_settings.get_wave_difficulty(wave_number)

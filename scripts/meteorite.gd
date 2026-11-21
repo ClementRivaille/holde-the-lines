@@ -12,6 +12,9 @@ signal on_explode(meteorite: Meteorite)
 @export var min_width: float = 24.0
 @export var max_width: float = 46.0
 
+@export var min_strength := 20
+@export var max_strength := 40
+
 @export var trail_width := 0.8
 @export var collision_width := 0.8
 
@@ -22,26 +25,26 @@ signal on_explode(meteorite: Meteorite)
 
 @export var max_trail_points = 40
 
-@export var strength := 25
-
+var _strength := 0
 var _stopped := false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var width = randf_range(min_width, max_width)
+	trail.modulate = Color(Color.WHITE, randf_range(min_trail_alpha, 1.0))
+	gravity_scale = randf_range(min_speed, max_speed)
+
+	body_entered.connect(on_collide)
+
+func set_strength(strength: float):
+	_strength = lerp(min_strength, max_strength, strength)
+	var width := lerpf(min_width, max_width, strength)
 
 	var circle: CircleShape2D = collision.shape
 	circle.radius = width * collision_width / 2.0
 
 	trail.width = width * trail_width
 	sprite.scale = Vector2.ONE * width / sprite.texture.get_width()
-	#explosion_particles.scale = sprite.scale
-	trail.modulate = Color(Color.WHITE, randf_range(min_trail_alpha, 1.0))
-
-	gravity_scale = randf_range(min_speed, max_speed)
-
-	body_entered.connect(on_collide)
 
 func _physics_process(_delta: float) -> void:
 	update_trail()
@@ -72,8 +75,8 @@ func on_collide(body: Node):
 		if body is BlockPiece:
 			var block := body as BlockPiece
 			if block.collideable:
-				GameStoreInstance.hit_block(block.block_id, strength)
+				GameStoreInstance.hit_block(block.block_id, _strength)
 				explode()
 		elif body is CityDome:
-			GameStoreInstance.hit_city(strength)
+			GameStoreInstance.hit_city(_strength)
 			explode()

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="DifficultySettings" format=3 uid="uid://dbov46f0im1x6"]
+
+[ext_resource type="Script" uid="uid://cvhuk8xf1of61" path="res://scripts/difficulty_settings.gd" id="1_7wo2s"]
+[ext_resource type="Script" uid="uid://b3ngk5qr661we" path="res://scripts/wave_difficulty.gd" id="2_hrsr0"]
+
+[sub_resource type="Resource" id="Resource_wy6jm"]
+script = ExtResource("2_hrsr0")
+max_meteorite_strength = 0.1
+metadata/_custom_type_script = "uid://b3ngk5qr661we"
+
+[sub_resource type="Resource" id="Resource_m6w01"]
+script = ExtResource("2_hrsr0")
+wave = 1
+min_meteorite_strength = 0.4
+max_meteorite_strength = 0.5
+metadata/_custom_type_script = "uid://b3ngk5qr661we"
+
+[sub_resource type="Resource" id="Resource_fc27n"]
+script = ExtResource("2_hrsr0")
+wave = 2
+min_meteorite_strength = 0.9
+metadata/_custom_type_script = "uid://b3ngk5qr661we"
+
+[resource]
+script = ExtResource("1_7wo2s")
+waves_difficulty = Array[ExtResource("2_hrsr0")]([SubResource("Resource_wy6jm"), SubResource("Resource_m6w01"), SubResource("Resource_fc27n")])
+metadata/_custom_type_script = "uid://cvhuk8xf1of61"
