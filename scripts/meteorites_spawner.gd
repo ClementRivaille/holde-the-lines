@@ -19,6 +19,9 @@ func _ready() -> void:
 	_fromX = - width / 2.0
 	_toX = width / 2.0
 
+	GameStoreInstance.wave_started.connect(on_start_wave)
+	GameStoreInstance.wave_stopped.connect(on_wave_stopped)
+
 	if (active):
 		spawn_meteorite()
 
@@ -47,3 +50,10 @@ func on_meteorite_explode(meteorite: Meteorite):
 	explosion.reparent(particles, true)
 	await explosion.finished
 	explosion.queue_free()
+
+func on_start_wave(_number: int):
+	active = true
+	spawn_meteorite()
+
+func on_wave_stopped():
+	active = false

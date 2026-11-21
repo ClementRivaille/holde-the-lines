@@ -4,6 +4,8 @@ class_name GameStore
 const GRID_WIDTH := 10
 const GRID_HEIGHT := 20
 
+const CITY_HP_TOTAL := 200
+
 signal block_pool_initiated
 
 signal on_drag
@@ -17,6 +19,12 @@ signal move_block(id: int, position: Vector2i)
 
 signal damage_block(block: BlockProperties)
 signal destroy_block(id: int)
+signal city_damaged(hp: int)
+signal game_over
+
+signal wave_started(number: int)
+signal wave_stopped
+signal time_to_wave_updated(remaining: float)
 
 var grid_content: Array[Array]
 
@@ -28,9 +36,22 @@ var droped_blocks: Array[Vector2i]
 
 var block_pool_instance: BlockPool
 
+var city_hp := 0
+
+var time_to_wave := 1.0
+var wave_number := 0
+var wave_active := false
+
 func _ready() -> void:
 	for row_idx in GRID_HEIGHT:
 		grid_content.append(range(GRID_WIDTH).map(func (_idx): return -1))
+
+	init_game()
+
+func init_game():
+	city_hp = CITY_HP_TOTAL
+	wave_number = 0
+	time_to_wave = 1.0
 
 func grab_tetromino(tetromino: Array[Array]):
 	is_dragging = true
@@ -192,3 +213,22 @@ func hit_block(id: int, dmg: int):
 		var position := get_block_position(id)
 		grid_content[position.y][position.x] = -1
 		destroy_block.emit(id)
+
+func hit_city(damages: int):
+	city_hp = max(0, city_hp - damages)
+	city_damaged.emit(city_hp)
+	if city_hp == 0:
+		game_over.emit()
+
+func start_wave():
+	wave_active = true
+	wave_started.emit(wave_number)
+
+func stop_wave():
+	wave_active = false
+	wave_number += 1
+	wave_stopped.emit()
+
+func update_time_to_wave(value: float):
+	time_to_wave = value
+	time_to_wave_updated.emit(time_to_wave)
