@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://ch7dvt54gm4n1" path="res://scenes/meteorites_spawner.tscn" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://cip24gjm0y340" path="res://scripts/wave_indicator.gd" id="12_w48qg"]
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
+[ext_resource type="Script" uid="uid://dsp1ygmupv0k3" path="res://scripts/shield_level.gd" id="15_82xsv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
 radius = 53.0
@@ -284,6 +285,9 @@ anchor_right = 0.731
 anchor_bottom = 0.91
 offset_top = 33.0
 offset_right = 0.47998047
+script = ExtResource("15_82xsv")
+damage_modulate = Color(0.81960785, 0.18039216, 0.22352941, 1)
+hit_duration = 0.4
 metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="TextureRect" parent="UICanva/ShieldLevel" unique_id=943510498]
@@ -392,6 +396,7 @@ max_delay = 0.2
 position = Vector2(960, 0)
 max_delay = 0.25
 width = 480
+active = true
 
 [node name="MeteoritesSpawner3" parent="WavesSpawners" unique_id=2094858174 instance=ExtResource("12_dg77c")]
 position = Vector2(1567, 0)
