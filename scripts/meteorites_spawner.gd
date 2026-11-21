@@ -38,11 +38,12 @@ func on_body_enter_delete_zone(body: Node2D):
 
 func on_delete_meteorite(meteorite: Meteorite):
 	meteorite.queue_free()
-	if _wave_ending:
-		if meteorites_parent.get_children().size() == 1:
-			_wave_ending = false
-			await get_tree().create_timer(end_wave_delay).timeout
-			GameStoreInstance.end_wave()
+
+func _process(_delta: float) -> void:
+	if _wave_ending && meteorites_parent.get_children().size() == 0:
+		_wave_ending = false
+		await get_tree().create_timer(end_wave_delay).timeout
+		GameStoreInstance.end_wave()
 
 func spawn_meteorite():
 	if !active: return
