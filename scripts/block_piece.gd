@@ -17,27 +17,28 @@ var block_id: int = -1
 var collideable := false:
 	set(value):
 		collideable = value
-		collision_layer = scan_mask if true else 0
+		collision_layer = scan_collision if true else 0
 	get:
 		return collideable
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var valid_sprite: Sprite2D = $ValidSprite
 @onready var cracks: Sprite2D = $Cracks
-@onready var damage_mask: Sprite2D = $DamageMask
+@onready var anim_mask: Sprite2D = $DamageMask
 @onready var explosion_particles: GPUParticles2D = $ExplosionParticles
 
-@export_range(0.0, 1.0, 0.05) var damage_mask_max_alpha := 0.70
-@export var damage_duration := 0.5
+@export var anim_duration := 0.8
 @export var cracks_textures: Array[Texture2D]
+@export var damage_color: Color = Color.RED
+@export var activate_color: Color = Color.WHITE
 
-@export var scan_mask := 2
+@export var scan_collision := 2
 
-var dmg_tween: Tween = null
+var anim_tween: Tween = null
 
 func _ready() -> void:
 	cracks.visible = false
-	damage_mask.modulate = Color.TRANSPARENT
+	anim_mask.modulate = Color.TRANSPARENT
 	collision_layer = 0
 
 func set_placeable(placeable: bool):
@@ -57,18 +58,24 @@ func validate_line():
 		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 
 func damage(hp: int, total: int):
-	if dmg_tween != null && dmg_tween.is_running():
-		dmg_tween.stop()
-	damage_mask.modulate = Color(Color.WHITE, damage_mask_max_alpha)
-	dmg_tween = create_tween()
-	dmg_tween.tween_property(damage_mask, "modulate", Color(Color.WHITE, 0.0), damage_duration
-		).set_ease(Tween.EASE_IN)
+	animate_mask(damage_color)
 
 	var texture_index := floori((1.0 - (float(hp) / float(total))) * float(cracks_textures.size() + 1)) - 1
 	if texture_index >= 0:
 		cracks.visible = true
 		cracks.texture = cracks_textures[min(cracks_textures.size() - 1, texture_index)]
 
+func animate_mask(color: Color):
+	if anim_tween != null && anim_tween.is_running():
+		anim_tween.stop()
+	anim_mask.modulate = color
+	anim_tween = create_tween()
+	anim_tween.tween_property(anim_mask, "modulate", Color(color, 0.0), anim_duration
+		).set_ease(Tween.EASE_IN)
+
 func explode() -> GPUParticles2D:
 	explosion_particles.restart()
 	return explosion_particles
+
+func activate():
+	animate_mask(activate_color)

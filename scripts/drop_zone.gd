@@ -105,6 +105,7 @@ func on_animation(anim: AnimationProperties):
 	if anim.kind == AnimationProperties.AnimationKind.GOLD_BLOCK:
 		if !GameStoreInstance.block_pool_instance.block_exists(anim.block_id): return
 		var block := _get_block_instance(anim.block_id)
+		block.activate()
 		AnimCoordinator.play_gold_animation(block.global_position)
 	elif anim.kind == AnimationProperties.AnimationKind.LINE:
 		var global_pos := tilemap.map_to_local(Vector2i(GameStore.GRID_WIDTH / 2, anim.row_idx)) + tilemap.global_position

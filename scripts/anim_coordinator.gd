@@ -3,7 +3,7 @@ class_name AnimationCoordinator
 
 signal should_play_anim(anim: AnimationProperties)
 
-const ANIMATIONS_DELAY := 0.2
+const ANIMATIONS_DELAY := 0.16
 const MULTIPLE_NUMBER := 3
 const MULTIPLE_OFFSET := 30.0
 const MULTIPLE_DELAY := 0.05
