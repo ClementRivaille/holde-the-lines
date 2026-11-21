@@ -12,7 +12,7 @@ func _ready() -> void:
 	incoming_wave_label.text = get_incoming_wave_text(0)
 
 	GameStoreInstance.wave_started.connect(on_start_wave)
-	GameStoreInstance.wave_stopped.connect(on_stop_wave)
+	GameStoreInstance.wave_ended.connect(on_stop_wave)
 	GameStoreInstance.time_to_wave_updated.connect(on_update_wave_time)
 
 func get_incoming_wave_text(number: int) -> String:
@@ -27,6 +27,8 @@ func on_stop_wave():
 	current_wave_label.visible = false
 	wave_time.visible = true
 	incoming_wave_label.text = get_incoming_wave_text(GameStoreInstance.wave_number)
+	time_bar.anchor_left = 0
+	time_bar.anchor_right = 1
 
 func on_update_wave_time(remaining: float):
 	time_bar.anchor_left = lerpf(0.5, 0, remaining)

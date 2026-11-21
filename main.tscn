@@ -41,7 +41,7 @@ tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 
 [sub_resource type="LabelSettings" id="LabelSettings_jbi04"]
-font_size = 100
+font_size = 90
 font_color = Color(0.44705668, 0.86, 0.28379998, 1)
 
 [sub_resource type="Gradient" id="Gradient_dg77c"]
@@ -258,7 +258,10 @@ anchor_left = 0.022916667
 anchor_top = 0.021296296
 anchor_right = 0.26770833
 anchor_bottom = 0.11018518
-offset_top = -57.0
+offset_left = 5.0
+offset_top = -52.0
+offset_right = 5.0
+offset_bottom = 5.0
 texture = ExtResource("7_272bh")
 region_rect = Rect2(0, 0, 128, 128)
 patch_margin_left = 32
@@ -303,12 +306,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DiffAnchor" type="Control" parent="UICanva/MoneyScreen" unique_id=665411094]
 layout_mode = 1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 80.0
 offset_right = 80.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="UpdateTimer" type="Timer" parent="UICanva/MoneyScreen" unique_id=1838826386]
 wait_time = 0.05
@@ -449,6 +455,7 @@ max_delay = 0.2
 position = Vector2(960, 0)
 max_delay = 0.25
 width = 480
+is_main = true
 
 [node name="MeteoritesSpawner3" parent="WavesSpawners" unique_id=2094858174 instance=ExtResource("12_dg77c")]
 position = Vector2(1567, 0)
@@ -458,4 +465,3 @@ max_delay = 0.2
 one_shot = true
 script = ExtResource("13_ycdy4")
 time_before_wave = 30.0
-wave_delay = 1.0

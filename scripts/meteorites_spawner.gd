@@ -8,12 +8,18 @@ class_name MeteoriteSpawner
 @export var active := false
 
 @export var meteorite_prefab: PackedScene = preload("res://prefabs/meteorite.tscn")
+@export var is_main := false
+@export var end_wave_delay := 0.5
 
 var _fromX: float = 0.0
 var _toX: float = 0.0
 
 @onready var collision: CollisionShape2D = $DeleteZone/CollisionShape2D
 @onready var particles: Node2D = $Particles
+@onready var meteorites_parent: Node2D = $SpawnedMeteorites
+
+
+var _wave_ending := false
 
 func _ready() -> void:
 	_fromX = - width / 2.0
@@ -32,12 +38,17 @@ func on_body_enter_delete_zone(body: Node2D):
 
 func on_delete_meteorite(meteorite: Meteorite):
 	meteorite.queue_free()
+	if _wave_ending:
+		if meteorites_parent.get_children().size() == 1:
+			_wave_ending == false
+			await get_tree().create_timer(end_wave_delay).timeout
+			GameStoreInstance.end_wave()
 
 func spawn_meteorite():
 	if !active: return
 
 	var meteorite: Meteorite = meteorite_prefab.instantiate()
-	add_child(meteorite)
+	meteorites_parent.add_child(meteorite)
 	meteorite.on_delete.connect(on_delete_meteorite)
 	meteorite.on_explode.connect(on_meteorite_explode)
 
@@ -57,3 +68,4 @@ func on_start_wave(_number: int):
 
 func on_wave_stopped():
 	active = false
+	_wave_ending = is_main

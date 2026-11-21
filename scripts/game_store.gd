@@ -9,6 +9,7 @@ const MONEY_START := 50
 const LINE_GAIN := 10
 const LINE_BONUS := 1.5
 const GOLD_GAIN := 5
+const CITY_INCOME = 20
 
 
 signal block_pool_initiated
@@ -29,6 +30,7 @@ signal game_over
 
 signal wave_started(number: int)
 signal wave_stopped
+signal wave_ended
 signal time_to_wave_updated(remaining: float)
 
 signal money_updated(value: int, diff: int)
@@ -244,6 +246,20 @@ func stop_wave():
 	wave_active = false
 	wave_number += 1
 	wave_stopped.emit()
+
+func end_wave():
+	var gain := CITY_INCOME
+	for row_idx in range(grid_content.size() - 1, -1, -1):
+		var row := grid_content[row_idx]
+		for id in row:
+			if id >= 0:
+				var block := block_pool_instance.get_block_by_id(id)
+				if block.type == BlockProperties.BlockType.GOLD:
+					gain += GOLD_GAIN
+
+	money += gain
+	money_updated.emit(money, gain)
+	wave_ended.emit()
 
 func update_time_to_wave(value: float):
 	time_to_wave = value
