@@ -6,7 +6,10 @@
 [ext_resource type="Script" uid="uid://byja66fyj1qlr" path="res://scripts/drop_zone.gd" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://pxhkb0lu558b" path="res://sprites/grid-tileset.png" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cvo0afu8uio3u" path="res://sprites/city-cracks-3.png" id="3_vivmo"]
+[ext_resource type="Script" uid="uid://bit22oovfvjoh" path="res://scripts/city_dome.gd" id="3_yaehf"]
 [ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dhs5jpie3hwi4" path="res://sprites/city-cracks-1.png" id="4_cegan"]
+[ext_resource type="Texture2D" uid="uid://ws2uqhn5ejrs" path="res://sprites/city-cracks-2.png" id="5_82xsv"]
 [ext_resource type="PackedScene" uid="uid://tgil3yun5noc" path="res://scenes/shop_button.tscn" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bsomw0no5st3o" path="res://sprites/screen.png" id="7_272bh"]
 [ext_resource type="Texture2D" uid="uid://146icgbv5wmc" path="res://sprites/city.png" id="8_5vw27"]
@@ -73,6 +76,10 @@ texture = ExtResource("1_272bh")
 position = Vector2(960, 1097)
 collision_layer = 3
 collision_mask = 3
+script = ExtResource("3_yaehf")
+damage_modulate = Color(0.81960785, 0.18039216, 0.22352941, 1)
+hit_duration = 0.4
+cracks_textures = Array[Texture2D]([ExtResource("4_cegan"), ExtResource("5_82xsv"), ExtResource("3_vivmo")])
 
 [node name="Sprite" type="Sprite2D" parent="City" unique_id=344714053]
 scale = Vector2(0.77559316, 0.77559316)
@@ -380,18 +387,15 @@ position = Vector2(0, -300)
 [node name="MeteoritesSpawner" parent="WavesSpawners" unique_id=1752229198 instance=ExtResource("12_dg77c")]
 position = Vector2(322, 0)
 max_delay = 0.2
-active = false
 
 [node name="MeteoritesSpawner2" parent="WavesSpawners" unique_id=989649886 instance=ExtResource("12_dg77c")]
 position = Vector2(960, 0)
 max_delay = 0.25
 width = 480
-active = false
 
 [node name="MeteoritesSpawner3" parent="WavesSpawners" unique_id=2094858174 instance=ExtResource("12_dg77c")]
 position = Vector2(1567, 0)
 max_delay = 0.2
-active = false
 
 [node name="WaveTimer" type="Timer" parent="." unique_id=620669106]
 one_shot = true

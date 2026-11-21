@@ -68,8 +68,12 @@ func explode():
 	on_explode.emit(self)
 
 func on_collide(body: Node):
-	if !_stopped && body is BlockPiece:
-		var block := body as BlockPiece
-		if block.collideable:
-			GameStoreInstance.hit_block(block.block_id, strength)
+	if !_stopped:
+		if body is BlockPiece:
+			var block := body as BlockPiece
+			if block.collideable:
+				GameStoreInstance.hit_block(block.block_id, strength)
+				explode()
+		elif body is CityDome:
+			GameStoreInstance.hit_city(strength)
 			explode()

@@ -9,7 +9,6 @@ size = Vector2(600, 126)
 script = ExtResource("1_ripeb")
 min_delay = 0.1
 max_delay = 0.3
-active = true
 
 [node name="DeleteZone" type="Area2D" parent="." unique_id=403376793]
 position = Vector2(20, 993)

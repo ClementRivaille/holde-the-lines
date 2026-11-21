@@ -64,9 +64,10 @@ func damage(hp: int, total: int):
 	dmg_tween.tween_property(damage_mask, "modulate", Color(Color.WHITE, 0.0), damage_duration
 		).set_ease(Tween.EASE_IN)
 
-	cracks.visible = true
-	var texture_index := floori((1.0 - (float(hp) / float(total))) * float(cracks_textures.size()))
-	cracks.texture = cracks_textures[min(cracks_textures.size() - 1, texture_index)]
+	var texture_index := floori((1.0 - (float(hp) / float(total))) * float(cracks_textures.size() + 1)) - 1
+	if texture_index >= 0:
+		cracks.visible = true
+		cracks.texture = cracks_textures[min(cracks_textures.size() - 1, texture_index)]
 
 func explode() -> GPUParticles2D:
 	explosion_particles.restart()
