@@ -51,6 +51,15 @@ var SHAPE_BY_TYPE: Dictionary[SHAPE_TYPE, Array] = {
 	SHAPE_TYPE.I: I_SHAPE,
 }
 
+const ALL_SHAPES: Array[Tetromino.SHAPE_TYPE] = [
+	SHAPE_TYPE.T,
+	SHAPE_TYPE.SQUARE,
+	SHAPE_TYPE.L,
+	SHAPE_TYPE.J,
+	SHAPE_TYPE.S,
+	SHAPE_TYPE.Z,
+	SHAPE_TYPE.I ]
+
 @export var shape_type: SHAPE_TYPE = SHAPE_TYPE.T
 @export var block_types: Array[BlockProperties.BlockType] = [
 	BlockProperties.BlockType.STANDARD,

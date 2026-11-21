@@ -10,16 +10,16 @@
 [ext_resource type="Script" uid="uid://bit22oovfvjoh" path="res://scripts/city_dome.gd" id="3_yaehf"]
 [ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dhs5jpie3hwi4" path="res://sprites/city-cracks-1.png" id="4_cegan"]
+[ext_resource type="Script" uid="uid://8lmimpc66oma" path="res://scripts/block_chances.gd" id="4_d13ii"]
 [ext_resource type="Texture2D" uid="uid://ws2uqhn5ejrs" path="res://sprites/city-cracks-2.png" id="5_82xsv"]
-[ext_resource type="PackedScene" uid="uid://tgil3yun5noc" path="res://scenes/shop_button.tscn" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bsomw0no5st3o" path="res://sprites/screen.png" id="7_272bh"]
 [ext_resource type="Texture2D" uid="uid://146icgbv5wmc" path="res://sprites/city.png" id="8_5vw27"]
-[ext_resource type="Texture2D" uid="uid://due88n6alwvt0" path="res://sprites/price-tag.png" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://cvg3krpsf0swx" path="res://sprites/shield.png" id="9_4c57u"]
 [ext_resource type="Texture2D" uid="uid://30oun6vwe8xc" path="res://sprites/border-white.png" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://ch7dvt54gm4n1" path="res://scenes/meteorites_spawner.tscn" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://cip24gjm0y340" path="res://scripts/wave_indicator.gd" id="12_w48qg"]
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://c6xfac1nmabu7" path="res://scenes/shop_shelf.tscn" id="14_1u8w0"]
 [ext_resource type="Script" uid="uid://dsp1ygmupv0k3" path="res://scripts/shield_level.gd" id="15_82xsv"]
 [ext_resource type="Script" uid="uid://ccf4j0fqm2xb1" path="res://scripts/money_screen.gd" id="15_getpj"]
 
@@ -44,6 +44,27 @@ script = ExtResource("3_ryguw")
 type = 3
 total_hp = 20
 metadata/_custom_type_script = "uid://dbae0mompfbgi"
+
+[sub_resource type="Resource" id="Resource_0odxb"]
+script = ExtResource("4_d13ii")
+weak = 3
+strong = 0
+gold = 2
+metadata/_custom_type_script = "uid://8lmimpc66oma"
+
+[sub_resource type="Resource" id="Resource_lswn8"]
+script = ExtResource("4_d13ii")
+weak = 2
+standard = 4
+gold = 2
+metadata/_custom_type_script = "uid://8lmimpc66oma"
+
+[sub_resource type="Resource" id="Resource_a6jrf"]
+script = ExtResource("4_d13ii")
+weak = 0
+standard = 3
+strong = 4
+metadata/_custom_type_script = "uid://8lmimpc66oma"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
 radius = 53.0
@@ -99,6 +120,7 @@ oscillation_speed = 0.07
 [node name="BlockPool" type="Node2D" parent="." unique_id=757010766]
 script = ExtResource("1_lquwl")
 default_properties = Array[ExtResource("3_ryguw")]([SubResource("Resource_getpj"), SubResource("Resource_ryguw"), SubResource("Resource_d13ii"), SubResource("Resource_1u8w0")])
+shop_levels = Array[ExtResource("4_d13ii")]([SubResource("Resource_0odxb"), SubResource("Resource_lswn8"), SubResource("Resource_a6jrf")])
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1727488942]
 position = Vector2(960, 540)
@@ -176,106 +198,23 @@ offset_right = 0.64001465
 offset_bottom = -5.2800293
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UICanva/Shop" unique_id=1668216649]
-propagate_maximum_size = false
+[node name="ShopShelf" parent="UICanva/Shop" unique_id=1082238481 instance=ExtResource("14_1u8w0")]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.15
-anchor_right = 1.0
-anchor_bottom = 0.15
-offset_top = -50.0
-offset_bottom = 50.0
-grow_vertical = 2
-theme_override_constants/separation = 60
-alignment = 1
+price = 4
 
-[node name="ShopButton" parent="UICanva/Shop/HBoxContainer" unique_id=1949536979 instance=ExtResource("6_7mycd")]
-layout_mode = 2
-
-[node name="ShopButton2" parent="UICanva/Shop/HBoxContainer" unique_id=1197677018 instance=ExtResource("6_7mycd")]
-layout_mode = 2
-
-[node name="PriceTag1" type="TextureRect" parent="UICanva/Shop" unique_id=980910259]
+[node name="ShopShelf2" parent="UICanva/Shop" unique_id=396743517 instance=ExtResource("14_1u8w0")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.278
-anchor_right = 0.5
-anchor_bottom = 0.278
-offset_left = -100.0
-offset_right = 100.0
-offset_bottom = 66.201996
-texture = ExtResource("8_efxa6")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UICanva/Shop" unique_id=335189001]
-propagate_maximum_size = false
-layout_mode = 1
-anchors_preset = -1
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -50.0
-offset_bottom = 50.0
-grow_vertical = 2
-theme_override_constants/separation = 60
-alignment = 1
-metadata/_edit_use_anchors_ = true
+price = 10
+level = 1
 
-[node name="ShopButton" parent="UICanva/Shop/HBoxContainer2" unique_id=2092079679 instance=ExtResource("6_7mycd")]
-layout_mode = 2
-
-[node name="ShopButton2" parent="UICanva/Shop/HBoxContainer2" unique_id=634468660 instance=ExtResource("6_7mycd")]
-layout_mode = 2
-
-[node name="PriceTag2" type="TextureRect" parent="UICanva/Shop" unique_id=1583308028]
+[node name="ShopShelf3" parent="UICanva/Shop" unique_id=1311590468 instance=ExtResource("14_1u8w0")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.629
-anchor_right = 0.5
-anchor_bottom = 0.629
-offset_left = -100.0
-offset_right = 100.0
-offset_bottom = 66.20203
-texture = ExtResource("8_efxa6")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="UICanva/Shop" unique_id=926217113]
-propagate_maximum_size = false
-layout_mode = 1
-anchors_preset = -1
 anchor_top = 0.85
-anchor_right = 1.0
 anchor_bottom = 0.85
-offset_top = -106.0
-offset_bottom = 106.0
-grow_vertical = 2
-theme_override_constants/separation = 60
-alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ShopButton" parent="UICanva/Shop/HBoxContainer3" unique_id=1761905566 instance=ExtResource("6_7mycd")]
-layout_mode = 2
-
-[node name="ShopButton2" parent="UICanva/Shop/HBoxContainer3" unique_id=1479928070 instance=ExtResource("6_7mycd")]
-layout_mode = 2
-
-[node name="PriceTag3" type="TextureRect" parent="UICanva/Shop" unique_id=751346032]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.979
-anchor_right = 0.5
-anchor_bottom = 0.979
-offset_left = -100.0
-offset_right = 100.0
-offset_bottom = 66.201996
-texture = ExtResource("8_efxa6")
-expand_mode = 1
-stretch_mode = 5
+price = 20
+level = 2
 
 [node name="MoneyScreen" type="NinePatchRect" parent="UICanva" unique_id=173446104]
 anchors_preset = -1

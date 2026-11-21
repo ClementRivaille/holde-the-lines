@@ -3,6 +3,13 @@ class_name BlockProperties
 
 enum BlockType { WEAK, STANDARD, STRONG, GOLD }
 
+const ALL_TYPES: Array[BlockProperties.BlockType] = [
+	BlockType.WEAK,
+	BlockType.STANDARD,
+	BlockType.STRONG,
+	BlockType.GOLD
+]
+
 var id: int = randi()
 var hp: int = 100
 var in_grid := false

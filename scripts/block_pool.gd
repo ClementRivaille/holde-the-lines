@@ -4,6 +4,7 @@ class_name BlockPool
 var instanced_blocks: Array[BlockProperties] = []
 
 @export var default_properties: Array[BlockProperties] = []
+@export var shop_levels: Array[BlockChanches] = []
 
 func _ready() -> void:
 	GameStoreInstance.register_block_pool(self)
@@ -36,3 +37,10 @@ func delete_block(id: int):
 
 func on_blocks_removed(blocks: Array[int]):
 	blocks.map(func(id: int): delete_block(id))
+
+func pick_block_type(level: int) -> BlockProperties.BlockType:
+	if level >= shop_levels.size():
+		return BlockProperties.BlockType.WEAK
+
+	var chances := shop_levels[level]
+	return chances.pick_type()
