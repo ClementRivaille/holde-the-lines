@@ -32,8 +32,11 @@ func write_value(value: int) -> String:
 
 func on_money_updated(_money: int, diff: int):
 	var money_diff: MoneyDiff = money_diff_prefab.instantiate()
-	diff_anchor.add_child(money_diff)
 	money_diff.set_value(diff)
+
+	if diff_anchor.get_children().size() > 0:
+		await get_tree().create_timer(0.2).timeout
+	diff_anchor.add_child(money_diff)
 
 	on_update_display()
 

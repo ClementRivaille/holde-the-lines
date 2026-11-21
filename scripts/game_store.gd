@@ -184,6 +184,12 @@ func check_line():
 			grid_content[row_idx].map(func (id: int): blocks.append(id))
 		lines_validated.emit(lines, blocks)
 
+		var money_gain := 0
+		for i in lines.size():
+			money_gain += roundi(float(LINE_GAIN) * LINE_BONUS**i )
+		money += money_gain
+		money_updated.emit(money, money_gain)
+
 		# Wait for animation before removing blocks
 		await get_tree().create_timer(BlockPiece.LINE_VALIDATION_DURATION).timeout
 
