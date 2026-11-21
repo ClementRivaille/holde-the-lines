@@ -2,10 +2,12 @@ extends RigidBody2D
 class_name Meteorite
 
 signal on_delete(meteorite: Meteorite)
+signal on_explode(meteorite: Meteorite)
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var trail: Line2D = $Trail
+@onready var explosion_particles: GPUParticles2D = $ExplosionParticles
 
 @export var min_width: float = 24.0
 @export var max_width: float = 46.0
@@ -20,6 +22,8 @@ signal on_delete(meteorite: Meteorite)
 
 @export var max_trail_points = 40
 
+@export var strength := 25
+
 var _stopped := false
 
 
@@ -32,6 +36,7 @@ func _ready() -> void:
 
 	trail.width = width * trail_width
 	sprite.scale = Vector2.ONE * width / sprite.texture.get_width()
+	#explosion_particles.scale = sprite.scale
 	trail.modulate = Color(Color.WHITE, randf_range(min_trail_alpha, 1.0))
 
 	gravity_scale = randf_range(min_speed, max_speed)
@@ -53,3 +58,9 @@ func stop():
 	linear_velocity = Vector2.ZERO
 	update_trail()
 	_stopped = true
+
+func explode():
+	stop()
+	sprite.visible = false
+	explosion_particles.restart()
+	on_explode.emit(self)

@@ -15,6 +15,9 @@ signal lines_validated(rows: Array[int], blocks: Array[int])
 signal remove_blocks(ids: Array[int])
 signal move_block(id: int, position: Vector2i)
 
+signal damage_block(block: BlockProperties)
+signal destroy_block(id: int)
+
 var grid_content: Array[Array]
 
 var is_dragging := false
@@ -177,3 +180,15 @@ func check_line():
 			row_moved += 1
 		for block_id in movements.keys():
 			move_block.emit(block_id, movements[block_id])
+
+func hit_block(id: int, dmg: int):
+	if !block_pool_instance.block_exists(id): return
+
+	var block := block_pool_instance.get_block_by_id(id)
+	block.hp = max(0, block.hp - dmg)
+	if block.hp > 0:
+		damage_block.emit(block)
+	else:
+		var position := get_block_position(id)
+		grid_content[position.y][position.x] = -1
+		destroy_block.emit(id)

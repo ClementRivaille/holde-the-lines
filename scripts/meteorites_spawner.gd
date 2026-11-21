@@ -13,6 +13,7 @@ var _fromX: float = 0.0
 var _toX: float = 0.0
 
 @onready var collision: CollisionShape2D = $DeleteZone/CollisionShape2D
+@onready var particles: Node2D = $Particles
 
 func _ready() -> void:
 	_fromX = - width / 2.0
@@ -35,6 +36,14 @@ func spawn_meteorite():
 	var meteorite: Meteorite = meteorite_prefab.instantiate()
 	add_child(meteorite)
 	meteorite.on_delete.connect(on_delete_meteorite)
+	meteorite.on_explode.connect(on_meteorite_explode)
+
 	meteorite.position = Vector2(randf_range(_fromX, _toX), 0)
 
 	get_tree().create_timer(randf_range(min_delay, max_delay)).timeout.connect(spawn_meteorite)
+
+func on_meteorite_explode(meteorite: Meteorite):
+	var explosion := meteorite.explosion_particles
+	explosion.reparent(particles, true)
+	await explosion.finished
+	explosion.queue_free()

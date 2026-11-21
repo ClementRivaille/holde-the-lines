@@ -69,6 +69,8 @@ tile_set = SubResource("TileSet_pvvjn")
 
 [node name="Blocks" type="Node2D" parent="DropZone" unique_id=662553194]
 
+[node name="Particles" type="Node2D" parent="DropZone" unique_id=1713407161]
+
 [node name="UICanva" type="CanvasLayer" parent="." unique_id=468360717]
 
 [node name="Debug" type="Control" parent="UICanva" unique_id=1219506513]

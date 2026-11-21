@@ -5,6 +5,7 @@ class_name DropZone
 @onready var tilemap: TileMapLayer = $TileMap
 @onready var preview_area: Node2D = $Preview
 @onready var blocks_area: Node2D = $Blocks
+@onready var particles: Node2D = $Particles
 
 @export var preview_block_prefab: PackedScene = preload("res://prefabs/preview_block.tscn")
 @export var block_prefab: PackedScene = preload("res://prefabs/block_piece.tscn")
@@ -28,6 +29,8 @@ func _ready() -> void:
 	GameStoreInstance.lines_validated.connect(on_lines_validated)
 	GameStoreInstance.remove_blocks.connect(on_blocks_removed)
 	GameStoreInstance.move_block.connect(on_block_moved)
+	GameStoreInstance.damage_block.connect(on_block_damaged)
+	GameStoreInstance.destroy_block.connect(on_block_destroyed)
 
 func on_mouse_enter():
 	_is_cursor_inside = true
@@ -61,6 +64,7 @@ func on_add_blocks(positions: Array[Vector2i]):
 		blocks_area.add_child(block)
 		block.block_id = props.id
 		block.set_type(props.type)
+		block.set_placed()
 		block.global_position = global_pos
 
 func on_lines_validated(_rows: Array[int], blocks: Array[int]):
@@ -72,6 +76,19 @@ func on_blocks_removed(blocks: Array[int]):
 	for block_id in blocks:
 		var block := _get_block_instance(block_id)
 		block.queue_free()
+
+func on_block_damaged(block_props: BlockProperties):
+	var block := _get_block_instance(block_props.id)
+	block.damage(block_props.hp, block_props.total_hp)
+
+func on_block_destroyed(id: int):
+	var block := _get_block_instance(id)
+	var explosion := block.explode()
+	explosion.reparent(particles, true)
+	block.queue_free()
+
+	await explosion.finished
+	explosion.queue_free()
 
 func on_block_moved(block_id: int, to_position: Vector2i):
 	var block := _get_block_instance(block_id)

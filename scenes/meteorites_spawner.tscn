@@ -19,4 +19,6 @@ input_pickable = false
 position = Vector2(0, 507)
 shape = SubResource("RectangleShape2D_r30ga")
 
+[node name="Particles" type="Node2D" parent="." unique_id=205964558]
+
 [connection signal="body_entered" from="DeleteZone" to="." method="on_body_enter_delete_zone"]

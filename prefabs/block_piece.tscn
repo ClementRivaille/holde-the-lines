@@ -5,6 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cqivrmek7slww" path="res://sprites/block-weak.png" id="3_dqmjn"]
 [ext_resource type="Texture2D" uid="uid://cjy7saexqdy3x" path="res://sprites/block-strong.png" id="4_636eo"]
 [ext_resource type="Texture2D" uid="uid://dil6wqbwlpmfd" path="res://sprites/block-gold.png" id="5_70gk4"]
+[ext_resource type="Texture2D" uid="uid://cof1rgb6bixxx" path="res://sprites/cracks-1.png" id="6_636eo"]
+[ext_resource type="Texture2D" uid="uid://by5fabqnbjvfo" path="res://sprites/cracks-2.png" id="7_b4ubj"]
+[ext_resource type="Texture2D" uid="uid://cr2u7ia16ndak" path="res://sprites/cracks-3.png" id="8_pfwf8"]
+[ext_resource type="Texture2D" uid="uid://cx6qlfjot2i11" path="res://sprites/circle_particule_texture.tres" id="9_pfwf8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 size = Vector2(48, 48)
@@ -17,19 +21,83 @@ gradient = SubResource("Gradient_mq8ty")
 width = 48
 height = 48
 
+[sub_resource type="Gradient" id="Gradient_dqmjn"]
+offsets = PackedFloat32Array(0.66423357)
+colors = PackedColorArray(0.69, 0.20561999, 0.1311, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r30ga"]
+gradient = SubResource("Gradient_dqmjn")
+width = 48
+height = 48
+
+[sub_resource type="Gradient" id="Gradient_uutnm"]
+colors = PackedColorArray(0.83889705, 0.83889705, 0.838897, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uk7cd"]
+gradient = SubResource("Gradient_uutnm")
+
+[sub_resource type="Gradient" id="Gradient_7pf0v"]
+offsets = PackedFloat32Array(0, 0.39565217)
+colors = PackedColorArray(0.57, 0.57, 0.57, 1, 0.8047426, 0.80474263, 0.8047426, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6uy0c"]
+gradient = SubResource("Gradient_7pf0v")
+
+[sub_resource type="Curve" id="Curve_lcjsp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r5bfg"]
+curve = SubResource("Curve_lcjsp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kwud6"]
+particle_flag_disable_z = true
+direction = Vector3(0, -60, 0)
+spread = 164.137
+initial_velocity_min = 326.53
+initial_velocity_max = 326.53
+gravity = Vector3(0, -500, 0)
+scale_min = 0.19999999
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_r5bfg")
+color = Color(0.90359825, 0.90359825, 0.9035982, 1)
+color_ramp = SubResource("GradientTexture1D_6uy0c")
+color_initial_ramp = SubResource("GradientTexture1D_uk7cd")
+
 [node name="BlockPiece" type="Area2D" unique_id=643376767]
+input_pickable = false
 script = ExtResource("1_al33w")
 standardTexture = ExtResource("2_qtiyv")
 weakTexture = ExtResource("3_dqmjn")
 strongTexture = ExtResource("4_636eo")
 goldTexture = ExtResource("5_70gk4")
+damage_mask_max_alpha = 0.85
+damage_duration = 0.8
+cracks_textures = Array[Texture2D]([ExtResource("6_636eo"), ExtResource("7_b4ubj"), ExtResource("8_pfwf8")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1736715273]
 texture = ExtResource("2_qtiyv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522794635]
+visible = false
 shape = SubResource("RectangleShape2D_pvvjn")
 
 [node name="ValidSprite" type="Sprite2D" parent="." unique_id=851190319]
 modulate = Color(1, 1, 1, 0)
 texture = SubResource("GradientTexture2D_pvvjn")
+
+[node name="Cracks" type="Sprite2D" parent="." unique_id=1653592073]
+texture = ExtResource("6_636eo")
+
+[node name="DamageMask" type="Sprite2D" parent="." unique_id=592395853]
+modulate = Color(1, 1, 1, 0)
+texture = SubResource("GradientTexture2D_r30ga")
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="." unique_id=425725315]
+emitting = false
+amount = 13
+texture = ExtResource("9_pfwf8")
+lifetime = 0.53
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_kwud6")
