@@ -26,13 +26,17 @@ func play_gold_animation(world_pos: Vector2, multiple: bool = false):
 	if multiple:
 		for i in range(-1, -1 + MULTIPLE_NUMBER):
 			var offset_position := Vector2(world_pos.x - MULTIPLE_OFFSET * i, world_pos.y)
-			_add_animated_icon(offset_position)
+			_add_animated_icon(offset_position, AnimationProperties.AnimationKind.GOLD_BLOCK)
 			await get_tree().create_timer(MULTIPLE_DELAY).timeout
 	else:
-		_add_animated_icon(world_pos)
+		_add_animated_icon(world_pos, AnimationProperties.AnimationKind.GOLD_BLOCK)
 
-func _add_animated_icon(world_pos: Vector2):
+func play_shield_animation(world_pos: Vector2):
+	_add_animated_icon(world_pos, AnimationProperties.AnimationKind.SHIELD_BLOCK)
+
+func _add_animated_icon(world_pos: Vector2, type: AnimationProperties.AnimationKind):
 	var icon: AnimatedIcon = animated_icon_prefab.instantiate()
 	add_child(icon)
 	icon.global_position = world_pos
 	icon.animation_finished.connect(func (): icon.queue_free())
+	icon.set_icon(type)

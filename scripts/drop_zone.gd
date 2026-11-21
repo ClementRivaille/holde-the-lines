@@ -102,11 +102,14 @@ func _get_block_instance(block_id: int) -> BlockPiece:
 	return blocks_area.get_child(block_idx)
 
 func on_animation(anim: AnimationProperties):
-	if anim.kind == AnimationProperties.AnimationKind.GOLD_BLOCK:
+	if anim.kind == AnimationProperties.AnimationKind.GOLD_BLOCK || anim.kind == AnimationProperties.AnimationKind.SHIELD_BLOCK:
 		if !GameStoreInstance.block_pool_instance.block_exists(anim.block_id): return
 		var block := _get_block_instance(anim.block_id)
 		block.activate()
-		AnimCoordinator.play_gold_animation(block.global_position)
+		if anim.kind == AnimationProperties.AnimationKind.GOLD_BLOCK:
+			AnimCoordinator.play_gold_animation(block.global_position)
+		else:
+			AnimCoordinator.play_shield_animation(block.global_position)
 	elif anim.kind == AnimationProperties.AnimationKind.LINE:
 		var global_pos := tilemap.map_to_local(Vector2i(GameStore.GRID_WIDTH / 2, anim.row_idx)) + tilemap.global_position
 		AnimCoordinator.play_gold_animation(global_pos, true)

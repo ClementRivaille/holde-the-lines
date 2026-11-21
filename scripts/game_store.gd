@@ -10,6 +10,7 @@ const LINE_GAIN := 10
 const LINE_BONUS := 1.5
 const GOLD_GAIN := 5
 const CITY_INCOME = 20
+const SHIELD_BLOCK_GAIN := 20
 
 
 signal block_pool_initiated
@@ -26,6 +27,7 @@ signal move_block(id: int, position: Vector2i)
 signal damage_block(block: BlockProperties)
 signal destroy_block(id: int)
 signal city_damaged(hp: int)
+signal city_heal(hp: int)
 signal game_over
 
 signal wave_started(number: int)
@@ -254,6 +256,7 @@ func stop_wave():
 
 func end_wave():
 	var gain := CITY_INCOME
+	var extra_hp := 0
 	AnimCoordinator.queue_animation(AnimationProperties.new(AnimationProperties.AnimationKind.CITY_INCOME))
 	for row_idx in range(grid_content.size() - 1, -1, -1):
 		var row := grid_content[row_idx]
@@ -263,9 +266,15 @@ func end_wave():
 				if block.type == BlockProperties.BlockType.GOLD:
 					gain += GOLD_GAIN
 					AnimCoordinator.queue_animation(AnimationProperties.new(AnimationProperties.AnimationKind.GOLD_BLOCK, block.id))
+				elif block.type == BlockProperties.BlockType.SHIELD:
+					extra_hp += SHIELD_BLOCK_GAIN
+					AnimCoordinator.queue_animation(AnimationProperties.new(AnimationProperties.AnimationKind.SHIELD_BLOCK, block.id))
 
 	money += gain
 	money_updated.emit(money, gain)
+	if extra_hp > 0:
+		city_hp += extra_hp
+		city_heal.emit(city_hp)
 	wave_ended.emit()
 	AnimCoordinator.play_queued_animations()
 

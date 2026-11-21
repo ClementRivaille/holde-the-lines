@@ -1,13 +1,14 @@
 extends Resource
 class_name BlockProperties
 
-enum BlockType { WEAK, STANDARD, STRONG, GOLD }
+enum BlockType { WEAK, STANDARD, STRONG, GOLD, SHIELD }
 
 const ALL_TYPES: Array[BlockProperties.BlockType] = [
 	BlockType.WEAK,
 	BlockType.STANDARD,
 	BlockType.STRONG,
-	BlockType.GOLD
+	BlockType.GOLD,
+	BlockType.SHIELD,
 ]
 
 var id: int = randi()

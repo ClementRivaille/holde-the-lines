@@ -5,6 +5,7 @@ class_name BlockChanches
 @export var standard: int = 1
 @export var strong: int = 1
 @export var gold: int = 1
+@export var shield: int = 1
 
 var probabilities: Array[float] = []
 var total: int = 0
@@ -13,11 +14,12 @@ var block_types_index: Array[BlockProperties.BlockType] = [
 	BlockProperties.BlockType.STANDARD,
 	BlockProperties.BlockType.STRONG,
 	BlockProperties.BlockType.GOLD,
+	BlockProperties.BlockType.SHIELD,
 ]
 
 func build_probabilities():
-	total = weak + standard + strong + gold
-	var chances: Array[int] = [weak, standard, strong, gold]
+	total = weak + standard + strong + gold + shield
+	var chances: Array[int] = [weak, standard, strong, gold, shield]
 
 	# order types
 	for i: int in range(1, chances.size()):

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cjy7saexqdy3x" path="res://sprites/block-strong.png" id="4_636eo"]
 [ext_resource type="Texture2D" uid="uid://dil6wqbwlpmfd" path="res://sprites/block-gold.png" id="5_70gk4"]
 [ext_resource type="Texture2D" uid="uid://cof1rgb6bixxx" path="res://sprites/cracks-1.png" id="6_636eo"]
+[ext_resource type="Texture2D" uid="uid://0xkpkgjvyhtd" path="res://sprites/block-shield.png" id="6_uutnm"]
 [ext_resource type="Texture2D" uid="uid://by5fabqnbjvfo" path="res://sprites/cracks-2.png" id="7_b4ubj"]
 [ext_resource type="Texture2D" uid="uid://cr2u7ia16ndak" path="res://sprites/cracks-3.png" id="8_pfwf8"]
 [ext_resource type="Texture2D" uid="uid://cx6qlfjot2i11" path="res://sprites/circle_particule_texture.tres" id="9_pfwf8"]
@@ -72,6 +73,7 @@ standardTexture = ExtResource("2_qtiyv")
 weakTexture = ExtResource("3_dqmjn")
 strongTexture = ExtResource("4_636eo")
 goldTexture = ExtResource("5_70gk4")
+shieldTexture = ExtResource("6_uutnm")
 cracks_textures = Array[Texture2D]([ExtResource("6_636eo"), ExtResource("7_b4ubj"), ExtResource("8_pfwf8")])
 damage_color = Color(0.69, 0.20561999, 0.1311, 0.84705883)
 activate_color = Color(1, 1, 1, 0.8627451)

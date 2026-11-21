@@ -11,6 +11,7 @@ const LINE_VALIDATION_DURATION: float = .7
 @export var weakTexture: Texture2D
 @export var strongTexture: Texture2D
 @export var goldTexture: Texture2D
+@export var shieldTexture: Texture2D
 
 var _type: BlockProperties.BlockType = BlockProperties.BlockType.STANDARD
 var block_id: int = -1
@@ -51,6 +52,7 @@ func set_type(value: BlockProperties.BlockType):
 		BlockProperties.BlockType.WEAK: weakTexture,
 		BlockProperties.BlockType.STRONG: strongTexture,
 		BlockProperties.BlockType.GOLD: goldTexture,
+		BlockProperties.BlockType.SHIELD: shieldTexture
 	}[_type]
 
 func validate_line():

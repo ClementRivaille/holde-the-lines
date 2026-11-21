@@ -15,6 +15,7 @@ var _tween: Tween = null
 func _ready() -> void:
 	cracks.visible = false
 	GameStoreInstance.city_damaged.connect(on_city_damaged)
+	GameStoreInstance.city_heal.connect(on_city_heal)
 	AnimCoordinator.should_play_anim.connect(on_animation)
 
 func on_city_damaged(hp: int):
@@ -27,6 +28,12 @@ func on_city_damaged(hp: int):
 		).set_ease(Tween.EASE_IN
 		).set_trans(Tween.TRANS_QUAD)
 
+	update_cracks(hp)
+
+func on_city_heal(hp: int):
+	update_cracks(hp)
+
+func update_cracks(hp: int):
 	var crack_index = floori((1.0 - (float(hp) / float(GameStore.CITY_HP_TOTAL))) * float(cracks_textures.size() + 1)) - 1
 	if crack_index >= 0:
 		cracks.visible = true

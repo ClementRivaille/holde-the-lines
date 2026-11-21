@@ -45,25 +45,34 @@ type = 3
 total_hp = 20
 metadata/_custom_type_script = "uid://dbae0mompfbgi"
 
+[sub_resource type="Resource" id="Resource_7pf0v"]
+script = ExtResource("3_ryguw")
+type = 4
+total_hp = 30
+metadata/_custom_type_script = "uid://dbae0mompfbgi"
+
 [sub_resource type="Resource" id="Resource_0odxb"]
 script = ExtResource("4_d13ii")
 weak = 3
 strong = 0
 gold = 2
+shield = 0
 metadata/_custom_type_script = "uid://8lmimpc66oma"
 
 [sub_resource type="Resource" id="Resource_lswn8"]
 script = ExtResource("4_d13ii")
-weak = 2
-standard = 4
-gold = 2
+weak = 5
+standard = 12
+strong = 4
+gold = 7
 metadata/_custom_type_script = "uid://8lmimpc66oma"
 
 [sub_resource type="Resource" id="Resource_a6jrf"]
 script = ExtResource("4_d13ii")
 weak = 0
-standard = 3
-strong = 4
+standard = 6
+strong = 10
+shield = 2
 metadata/_custom_type_script = "uid://8lmimpc66oma"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
@@ -119,7 +128,7 @@ oscillation_speed = 0.07
 
 [node name="BlockPool" type="Node2D" parent="." unique_id=757010766]
 script = ExtResource("1_lquwl")
-default_properties = Array[ExtResource("3_ryguw")]([SubResource("Resource_getpj"), SubResource("Resource_ryguw"), SubResource("Resource_d13ii"), SubResource("Resource_1u8w0")])
+default_properties = Array[ExtResource("3_ryguw")]([SubResource("Resource_getpj"), SubResource("Resource_ryguw"), SubResource("Resource_d13ii"), SubResource("Resource_1u8w0"), SubResource("Resource_7pf0v")])
 shop_levels = Array[ExtResource("4_d13ii")]([SubResource("Resource_0odxb"), SubResource("Resource_lswn8"), SubResource("Resource_a6jrf")])
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1727488942]

@@ -1,7 +1,7 @@
 extends Resource
 class_name AnimationProperties
 
-enum AnimationKind { GOLD_BLOCK, CITY_INCOME, LINE }
+enum AnimationKind { GOLD_BLOCK, CITY_INCOME, LINE, SHIELD_BLOCK }
 
 var kind: AnimationKind
 var block_id: int
