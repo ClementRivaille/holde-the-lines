@@ -3,6 +3,8 @@ class_name BlockPool
 
 var instanced_blocks: Array[BlockProperties] = []
 
+@export var default_properties: Array[BlockProperties] = []
+
 func _ready() -> void:
 	GameStoreInstance.register_block_pool(self)
 	GameStoreInstance.remove_blocks.connect(on_blocks_removed)
@@ -19,9 +21,9 @@ func get_block_by_id(id: int) -> BlockProperties:
 	return instanced_blocks[index]
 
 func generate_block(type: BlockProperties.BlockType) -> BlockProperties:
-	var block := BlockProperties.new()
+	var props_idx := default_properties.find_custom(func (p: BlockProperties): return p.type == type)
+	var block := BlockProperties.new() if props_idx == -1 else default_properties[props_idx].copy()
 	block.type = type
-
 	instanced_blocks.append(block)
 
 	return block

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bcw3cc6b82pin" path="res://scripts/block_pool.gd" id="1_lquwl"]
 [ext_resource type="Script" uid="uid://byja66fyj1qlr" path="res://scripts/drop_zone.gd" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://pxhkb0lu558b" path="res://sprites/grid-tileset.png" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://dbae0mompfbgi" path="res://scripts/block_properties.gd" id="3_ryguw"]
 [ext_resource type="Texture2D" uid="uid://cvo0afu8uio3u" path="res://sprites/city-cracks-3.png" id="3_vivmo"]
 [ext_resource type="Script" uid="uid://bit22oovfvjoh" path="res://scripts/city_dome.gd" id="3_yaehf"]
 [ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
@@ -21,6 +22,28 @@
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
 [ext_resource type="Script" uid="uid://dsp1ygmupv0k3" path="res://scripts/shield_level.gd" id="15_82xsv"]
 [ext_resource type="Script" uid="uid://ccf4j0fqm2xb1" path="res://scripts/money_screen.gd" id="15_getpj"]
+
+[sub_resource type="Resource" id="Resource_getpj"]
+script = ExtResource("3_ryguw")
+total_hp = 50
+metadata/_custom_type_script = "uid://dbae0mompfbgi"
+
+[sub_resource type="Resource" id="Resource_ryguw"]
+script = ExtResource("3_ryguw")
+type = 1
+metadata/_custom_type_script = "uid://dbae0mompfbgi"
+
+[sub_resource type="Resource" id="Resource_d13ii"]
+script = ExtResource("3_ryguw")
+type = 2
+total_hp = 200
+metadata/_custom_type_script = "uid://dbae0mompfbgi"
+
+[sub_resource type="Resource" id="Resource_1u8w0"]
+script = ExtResource("3_ryguw")
+type = 3
+total_hp = 20
+metadata/_custom_type_script = "uid://dbae0mompfbgi"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
 radius = 53.0
@@ -73,6 +96,10 @@ script = ExtResource("1_2cqfq")
 oscillation = 3.0
 oscillation_speed = 0.07
 
+[node name="BlockPool" type="Node2D" parent="." unique_id=757010766]
+script = ExtResource("1_lquwl")
+default_properties = Array[ExtResource("3_ryguw")]([SubResource("Resource_getpj"), SubResource("Resource_ryguw"), SubResource("Resource_d13ii"), SubResource("Resource_1u8w0")])
+
 [node name="Background" type="Sprite2D" parent="." unique_id=1727488942]
 position = Vector2(960, 540)
 scale = Vector2(1.05, 1.05)
@@ -99,9 +126,6 @@ texture = ExtResource("3_vivmo")
 position = Vector2(2, -10)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_r30ga")
-
-[node name="BlockPool" type="Node2D" parent="." unique_id=757010766]
-script = ExtResource("1_lquwl")
 
 [node name="DropZone" type="Area2D" parent="." unique_id=1487723071]
 position = Vector2(962, 496)
