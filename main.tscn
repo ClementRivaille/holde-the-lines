@@ -1,9 +1,11 @@
 [gd_scene format=4 uid="uid://d2e2y0fmljsua"]
 
+[ext_resource type="Script" uid="uid://daibu04p185ga" path="res://scripts/main_camera.gd" id="1_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://cy23wn1i66thw" path="res://sprites/background.png" id="1_272bh"]
 [ext_resource type="Script" uid="uid://bcw3cc6b82pin" path="res://scripts/block_pool.gd" id="1_lquwl"]
 [ext_resource type="Script" uid="uid://byja66fyj1qlr" path="res://scripts/drop_zone.gd" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://pxhkb0lu558b" path="res://sprites/grid-tileset.png" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cvo0afu8uio3u" path="res://sprites/city-cracks-3.png" id="3_vivmo"]
 [ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://tgil3yun5noc" path="res://scenes/shop_button.tscn" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bsomw0no5st3o" path="res://sprites/screen.png" id="7_272bh"]
@@ -14,6 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://ch7dvt54gm4n1" path="res://scenes/meteorites_spawner.tscn" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://cip24gjm0y340" path="res://scripts/wave_indicator.gd" id="12_w48qg"]
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
+radius = 53.0
+height = 514.0001
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
@@ -54,15 +60,31 @@ font_color = Color(1, 0.19999999, 0.19999999, 1)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1353625902]
 position = Vector2(960, 540)
+script = ExtResource("1_2cqfq")
+oscillation = 3.0
+oscillation_speed = 0.07
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1727488942]
 position = Vector2(960, 540)
 scale = Vector2(1.05, 1.05)
 texture = ExtResource("1_272bh")
 
-[node name="City" type="Sprite2D" parent="." unique_id=344714053]
-position = Vector2(960, 1102)
+[node name="City" type="StaticBody2D" parent="." unique_id=1132050555]
+position = Vector2(960, 1097)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite" type="Sprite2D" parent="City" unique_id=344714053]
+scale = Vector2(0.77559316, 0.77559316)
 texture = ExtResource("8_5vw27")
+
+[node name="Cracks" type="Sprite2D" parent="City/Sprite" unique_id=1838293233]
+texture = ExtResource("3_vivmo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="City" unique_id=863509409]
+position = Vector2(2, -10)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_r30ga")
 
 [node name="BlockPool" type="Node2D" parent="." unique_id=757010766]
 script = ExtResource("1_lquwl")
