@@ -64,8 +64,9 @@ color = Color(0.90359825, 0.90359825, 0.9035982, 1)
 color_ramp = SubResource("GradientTexture1D_6uy0c")
 color_initial_ramp = SubResource("GradientTexture1D_uk7cd")
 
-[node name="BlockPiece" type="Area2D" unique_id=643376767]
-input_pickable = false
+[node name="BlockPiece" type="StaticBody2D" unique_id=1811430769]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_al33w")
 standardTexture = ExtResource("2_qtiyv")
 weakTexture = ExtResource("3_dqmjn")

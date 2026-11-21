@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 class_name BlockPiece
 
 const BLOCK_SIZE: float = 48
@@ -14,6 +14,12 @@ const LINE_VALIDATION_DURATION: float = .7
 
 var _type: BlockProperties.BlockType = BlockProperties.BlockType.STANDARD
 var block_id: int = -1
+var collideable := false:
+	set(value):
+		collideable = value
+		collision_layer = scan_mask if true else 0
+	get:
+		return collideable
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var valid_sprite: Sprite2D = $ValidSprite
@@ -25,11 +31,14 @@ var block_id: int = -1
 @export var damage_duration := 0.5
 @export var cracks_textures: Array[Texture2D]
 
+@export var scan_mask := 2
+
 var dmg_tween: Tween = null
 
 func _ready() -> void:
 	cracks.visible = false
 	damage_mask.modulate = Color.TRANSPARENT
+	collision_layer = 0
 
 func set_placeable(placeable: bool):
 	modulate = Color(Color.WHITE, plaecable_opacity if placeable else unplaceable_opacity)
@@ -46,15 +55,6 @@ func set_type(value: BlockProperties.BlockType):
 func validate_line():
 	create_tween().tween_property(valid_sprite, "modulate", Color(Color.WHITE, 1), LINE_VALIDATION_DURATION
 		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-
-func set_placed():
-	body_entered.connect(on_body_enter)
-
-func on_body_enter(body: Node):
-	if body is Meteorite:
-		var meteorite := body as Meteorite
-		GameStoreInstance.hit_block(block_id, meteorite.strength)
-		meteorite.explode()
 
 func damage(hp: int, total: int):
 	if dmg_tween != null && dmg_tween.is_running():

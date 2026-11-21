@@ -41,6 +41,8 @@ func _ready() -> void:
 
 	gravity_scale = randf_range(min_speed, max_speed)
 
+	body_entered.connect(on_collide)
+
 func _physics_process(_delta: float) -> void:
 	update_trail()
 
@@ -64,3 +66,10 @@ func explode():
 	sprite.visible = false
 	explosion_particles.restart()
 	on_explode.emit(self)
+
+func on_collide(body: Node):
+	if !_stopped && body is BlockPiece:
+		var block := body as BlockPiece
+		if block.collideable:
+			GameStoreInstance.hit_block(block.block_id, strength)
+			explode()

@@ -64,7 +64,7 @@ func on_add_blocks(positions: Array[Vector2i]):
 		blocks_area.add_child(block)
 		block.block_id = props.id
 		block.set_type(props.type)
-		block.set_placed()
+		block.collideable = true
 		block.global_position = global_pos
 
 func on_lines_validated(_rows: Array[int], blocks: Array[int]):
