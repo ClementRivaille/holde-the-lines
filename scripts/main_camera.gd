@@ -12,6 +12,7 @@ func _ready() -> void:
 	_init_position = Vector2(position)
 	GameStoreInstance.wave_started.connect(on_wave_start)
 	GameStoreInstance.wave_stopped.connect(on_wave_stop)
+	GameStoreInstance.game_over.connect(on_wave_stop)
 
 func on_wave_start(_number: int):
 	_tween = create_tween().set_loops(

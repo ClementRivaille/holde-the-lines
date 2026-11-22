@@ -248,10 +248,12 @@ func hit_block(id: int, dmg: int):
 		destroy_block.emit(id)
 
 func hit_city(damages: int):
+	if state != GameState.PLAYING: return
+
 	city_hp = max(0, city_hp - damages)
 	city_damaged.emit(city_hp)
 	if city_hp == 0:
-		game_over.emit()
+		end_game()
 
 func start_wave():
 	wave_active = true
@@ -297,3 +299,16 @@ func spend_money(price: int):
 
 func get_current_difficulty() -> WaveDifficulty:
 	return difficulty_settings.get_wave_difficulty(wave_number)
+
+func end_game():
+	if is_dragging:
+		is_dragging = false
+		hand_tetromino = []
+		can_be_placed = false
+		droped_blocks = []
+		on_tetromino_placeable.emit(false, droped_blocks)
+		on_drop.emit(false)
+
+	wave_active = false
+	state = GameState.END_SCREEN
+	game_over.emit()

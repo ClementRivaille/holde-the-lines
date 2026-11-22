@@ -27,6 +27,7 @@ func _ready() -> void:
 
 	GameStoreInstance.wave_started.connect(on_start_wave)
 	GameStoreInstance.wave_stopped.connect(on_wave_stopped)
+	GameStoreInstance.game_over.connect(on_game_end)
 
 	if (active):
 		spawn_meteorite()
@@ -40,7 +41,7 @@ func on_delete_meteorite(meteorite: Meteorite):
 	meteorite.queue_free()
 
 func _process(_delta: float) -> void:
-	if _wave_ending && meteorites_parent.get_children().size() == 0:
+	if _wave_ending && meteorites_parent.get_children().size() == 0 && GameStoreInstance.state == GameStore.GameState.PLAYING:
 		_wave_ending = false
 		await get_tree().create_timer(end_wave_delay).timeout
 		GameStoreInstance.end_wave()
@@ -72,3 +73,7 @@ func on_start_wave(_number: int):
 func on_wave_stopped():
 	active = false
 	_wave_ending = is_main
+
+func on_game_end():
+	active = false
+	_wave_ending = false

@@ -12,6 +12,7 @@ func _ready() -> void:
 	GameStoreInstance.wave_ended.connect(on_stop_wave)
 	GameStoreInstance.time_to_wave_updated.connect(on_update_wave_time)
 	GameStoreInstance.game_started.connect(on_game_start)
+	GameStoreInstance.game_over.connect(on_game_over)
 
 	visible = false
 
@@ -39,3 +40,6 @@ func on_stop_wave():
 func on_update_wave_time(remaining: float):
 	time_bar.anchor_left = lerpf(0.5, 0, remaining)
 	time_bar.anchor_right = lerpf(0.5, 1, remaining)
+
+func on_game_over():
+	visible = false

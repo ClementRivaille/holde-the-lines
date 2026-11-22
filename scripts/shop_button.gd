@@ -16,6 +16,7 @@ func _ready() -> void:
 	pressed.connect(on_click)
 	GameStoreInstance.on_drop.connect(on_drop)
 	GameStoreInstance.money_updated.connect(on_money_updated)
+	GameStoreInstance.game_over.connect(on_game_over)
 
 func init(with_price: int, with_level: int):
 	price = with_price
@@ -60,3 +61,7 @@ func on_money_updated(money: int, _diff: int):
 	elif money >= price && disabled:
 		disabled = false
 		modulate = Color.WHITE
+
+func on_game_over():
+	disabled = true
+	modulate = Color(Color.WHITE, alpha_disabled)

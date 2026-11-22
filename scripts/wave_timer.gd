@@ -8,6 +8,7 @@ func _ready() -> void:
 	GameStoreInstance.wave_started.connect(on_wave_start)
 	GameStoreInstance.wave_ended.connect(on_wave_end)
 	GameStoreInstance.game_started.connect(on_game_start)
+	GameStoreInstance.game_over.connect(on_game_over)
 	timeout.connect(on_timeout)
 
 func on_game_start():
@@ -24,6 +25,9 @@ func on_wave_start(_number: int):
 
 func on_wave_end():
 	start(time_before_wave)
+
+func on_game_over():
+	stop()
 
 func _process(_delta: float) -> void:
 	if !GameStoreInstance.wave_active && !is_stopped():
