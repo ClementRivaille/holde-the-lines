@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c6xfac1nmabu7" path="res://scenes/shop_shelf.tscn" id="14_1u8w0"]
 [ext_resource type="Script" uid="uid://dsp1ygmupv0k3" path="res://scripts/shield_level.gd" id="15_82xsv"]
 [ext_resource type="Script" uid="uid://ccf4j0fqm2xb1" path="res://scripts/money_screen.gd" id="15_getpj"]
+[ext_resource type="AudioStream" uid="uid://7l1kvkikrcir" path="res://audio/hold-the-line_bg-music.ogg" id="23_d13ii"]
 
 [sub_resource type="Resource" id="Resource_getpj"]
 script = ExtResource("3_ryguw")
@@ -216,6 +217,9 @@ layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
 price = 10
 level = 1
 
@@ -439,3 +443,8 @@ max_delay = 0.2
 one_shot = true
 script = ExtResource("13_ycdy4")
 time_before_wave = 30.0
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1137312658]
+stream = ExtResource("23_d13ii")
+autoplay = true
+bus = &"Music"
