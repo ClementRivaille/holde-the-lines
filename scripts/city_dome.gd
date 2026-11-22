@@ -3,6 +3,8 @@ class_name CityDome
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var cracks: Sprite2D = $Sprite/Cracks
+@onready var smokes: GPUParticles2D = $Smokes
+
 
 @export var damage_modulate: Color = Color.RED
 @export_range(0.0, 1.0, 0.05) var hit_duration: float = 1.0
@@ -16,6 +18,7 @@ func _ready() -> void:
 	cracks.visible = false
 	GameStoreInstance.city_damaged.connect(on_city_damaged)
 	GameStoreInstance.city_heal.connect(on_city_heal)
+	GameStoreInstance.game_over.connect(on_game_over)
 	AnimCoordinator.should_play_anim.connect(on_animation)
 
 func on_city_damaged(hp: int):
@@ -42,3 +45,7 @@ func update_cracks(hp: int):
 func on_animation(anim: AnimationProperties):
 	if anim.kind == AnimationProperties.AnimationKind.CITY_INCOME:
 		AnimCoordinator.play_gold_animation(Vector2(global_position.x, global_position.y - coins_offset), true)
+
+func on_game_over():
+	sprite.visible = false
+	smokes.restart()

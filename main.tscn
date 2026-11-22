@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://146icgbv5wmc" path="res://sprites/city.png" id="8_5vw27"]
 [ext_resource type="Texture2D" uid="uid://cvg3krpsf0swx" path="res://sprites/shield.png" id="9_4c57u"]
 [ext_resource type="Texture2D" uid="uid://30oun6vwe8xc" path="res://sprites/border-white.png" id="10_efxa6"]
+[ext_resource type="Texture2D" uid="uid://cx6qlfjot2i11" path="res://sprites/circle_particule_texture.tres" id="11_qsp4k"]
 [ext_resource type="PackedScene" uid="uid://ch7dvt54gm4n1" path="res://scenes/meteorites_spawner.tscn" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://cip24gjm0y340" path="res://scripts/wave_indicator.gd" id="12_w48qg"]
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
@@ -84,6 +85,49 @@ metadata/_custom_type_script = "uid://8lmimpc66oma"
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r30ga"]
 radius = 53.0
 height = 514.0001
+
+[sub_resource type="Curve" id="Curve_vd3s5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.57303375), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d3lmj"]
+curve = SubResource("Curve_vd3s5")
+
+[sub_resource type="Gradient" id="Gradient_kq58d"]
+colors = PackedColorArray(0.011087579, 0.011087578, 0.01108758, 1, 0.646029, 0.646029, 0.646029, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jbi04"]
+gradient = SubResource("Gradient_kq58d")
+
+[sub_resource type="Gradient" id="Gradient_seu75"]
+colors = PackedColorArray(0.9419007, 0.54192305, 0.4430751, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ekn1r"]
+gradient = SubResource("Gradient_seu75")
+
+[sub_resource type="Curve" id="Curve_htxhm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r30ga"]
+curve = SubResource("Curve_htxhm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pvvjn"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(300, 1, 1)
+direction = Vector3(1, -400, 0)
+spread = 35.882
+initial_velocity_min = 475.56
+initial_velocity_max = 475.56
+gravity = Vector3(0, -120, 0)
+scale_min = 0.39999998
+scale_curve = SubResource("CurveTexture_r30ga")
+color_ramp = SubResource("GradientTexture1D_ekn1r")
+color_initial_ramp = SubResource("GradientTexture1D_jbi04")
+alpha_curve = SubResource("CurveTexture_d3lmj")
+hue_variation_min = -0.07000002
+hue_variation_max = 0.059999976
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvvjn"]
 
@@ -295,6 +339,13 @@ texture = ExtResource("3_vivmo")
 position = Vector2(2, -10)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_r30ga")
+
+[node name="Smokes" type="GPUParticles2D" parent="City" unique_id=807366066]
+emitting = false
+amount = 250
+texture = ExtResource("11_qsp4k")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_pvvjn")
 
 [node name="DropZone" type="Area2D" parent="." unique_id=1487723071]
 position = Vector2(962, 496)

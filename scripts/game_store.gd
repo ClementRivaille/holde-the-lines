@@ -246,6 +246,8 @@ func hit_block(id: int, dmg: int):
 		var position := get_block_position(id)
 		grid_content[position.y][position.x] = -1
 		destroy_block.emit(id)
+		if is_dragging:
+			check_tetromino_drop_position(cursor_position.x, cursor_position.y)
 
 func hit_city(damages: int):
 	if state != GameState.PLAYING: return
