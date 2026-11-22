@@ -42,7 +42,7 @@ func on_money_updated(_money: int, diff: int):
 	money_diff.set_value(diff)
 
 	if diff_anchor.get_children().size() > 0:
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.4).timeout
 	diff_anchor.add_child(money_diff)
 
 	on_update_display()
