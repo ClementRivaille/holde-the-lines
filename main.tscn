@@ -1,9 +1,14 @@
 [gd_scene format=4 uid="uid://d2e2y0fmljsua"]
 
+[ext_resource type="Script" uid="uid://dy7kv5qstj5jx" path="res://scripts/sfx_manager.gd" id="1_0cp0l"]
 [ext_resource type="Script" uid="uid://daibu04p185ga" path="res://scripts/main_camera.gd" id="1_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://cy23wn1i66thw" path="res://sprites/background.png" id="1_272bh"]
+[ext_resource type="Script" uid="uid://c7kl07qnkhaa0" path="res://scripts/sound_pool.gd" id="1_kq58d"]
 [ext_resource type="Script" uid="uid://bcw3cc6b82pin" path="res://scripts/block_pool.gd" id="1_lquwl"]
+[ext_resource type="AudioStream" uid="uid://bdaew4da53n8j" path="res://audio/grumble.ogg" id="1_seu75"]
 [ext_resource type="Script" uid="uid://byja66fyj1qlr" path="res://scripts/drop_zone.gd" id="2_0xm2m"]
+[ext_resource type="AudioStream" uid="uid://dwcnq8ige3kq6" path="res://audio/city-destroyed.wav" id="2_jq2sk"]
+[ext_resource type="AudioStream" uid="uid://dyhvxyj444dhq" path="res://audio/place-block.wav" id="3_4k2k6"]
 [ext_resource type="Texture2D" uid="uid://pxhkb0lu558b" path="res://sprites/grid-tileset.png" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://dbae0mompfbgi" path="res://scripts/block_properties.gd" id="3_ryguw"]
 [ext_resource type="Texture2D" uid="uid://cvo0afu8uio3u" path="res://sprites/city-cracks-3.png" id="3_vivmo"]
@@ -11,13 +16,21 @@
 [ext_resource type="Script" uid="uid://d2tsqxp214klb" path="res://debug.gd" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dhs5jpie3hwi4" path="res://sprites/city-cracks-1.png" id="4_cegan"]
 [ext_resource type="Script" uid="uid://8lmimpc66oma" path="res://scripts/block_chances.gd" id="4_d13ii"]
+[ext_resource type="AudioStream" uid="uid://bilejhrk1nod" path="res://audio/meteorite_impact.wav" id="5_4k2k6"]
 [ext_resource type="Texture2D" uid="uid://ws2uqhn5ejrs" path="res://sprites/city-cracks-2.png" id="5_82xsv"]
+[ext_resource type="AudioStream" uid="uid://20htaxv1xgn4" path="res://audio/line.ogg" id="6_ok6jj"]
 [ext_resource type="Texture2D" uid="uid://bsomw0no5st3o" path="res://sprites/screen.png" id="7_272bh"]
+[ext_resource type="AudioStream" uid="uid://c24841x8mf2cr" path="res://audio/coin.wav" id="7_facbu"]
 [ext_resource type="Texture2D" uid="uid://146icgbv5wmc" path="res://sprites/city.png" id="8_5vw27"]
+[ext_resource type="AudioStream" uid="uid://bhg5go35yhofh" path="res://audio/shield-gain.wav" id="8_facbu"]
 [ext_resource type="Texture2D" uid="uid://cvg3krpsf0swx" path="res://sprites/shield.png" id="9_4c57u"]
+[ext_resource type="AudioStream" uid="uid://kfg5gkrl61sc" path="res://audio/explosion.wav" id="9_4lmeg"]
+[ext_resource type="AudioStream" uid="uid://djw3b28pyy5is" path="res://audio/glass/Glass Break 4.wav" id="10_0cp0l"]
 [ext_resource type="Texture2D" uid="uid://30oun6vwe8xc" path="res://sprites/border-white.png" id="10_efxa6"]
+[ext_resource type="AudioStream" uid="uid://bccbwp6jifwqe" path="res://audio/glass/Glass Break 3.wav" id="11_d2t1y"]
 [ext_resource type="Texture2D" uid="uid://cx6qlfjot2i11" path="res://sprites/circle_particule_texture.tres" id="11_qsp4k"]
 [ext_resource type="PackedScene" uid="uid://ch7dvt54gm4n1" path="res://scenes/meteorites_spawner.tscn" id="12_dg77c"]
+[ext_resource type="AudioStream" uid="uid://bgmp8pc6xk2tn" path="res://audio/glass/Glass Break.wav" id="12_gngh3"]
 [ext_resource type="Script" uid="uid://cip24gjm0y340" path="res://scripts/wave_indicator.gd" id="12_w48qg"]
 [ext_resource type="Script" uid="uid://cutby6cakw7ac" path="res://scripts/wave_timer.gd" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://c6xfac1nmabu7" path="res://scenes/shop_shelf.tscn" id="14_1u8w0"]
@@ -301,6 +314,73 @@ _data = {
 }
 
 [node name="Main" type="Node2D" unique_id=626972420]
+
+[node name="SFXManager" type="Node2D" parent="." unique_id=1669897865]
+position = Vector2(0, 127)
+script = ExtResource("1_0cp0l")
+rain_fade_in = 0.2
+
+[node name="MeteoriteRainSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=951371571]
+stream = ExtResource("1_seu75")
+volume_db = -80.0
+autoplay = true
+bus = &"SFX"
+
+[node name="GameOverSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=1596062969]
+stream = ExtResource("2_jq2sk")
+volume_db = 11.729
+bus = &"SFX"
+
+[node name="PlaceBlockSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=973936691]
+stream = ExtResource("3_4k2k6")
+volume_db = 3.128
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+max_instances = 3
+pitch_variation = 0.1
+
+[node name="MeteoriteImpactSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=774325933]
+stream = ExtResource("5_4k2k6")
+volume_db = 5.472
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+max_instances = 3
+pitch_variation = 0.15
+
+[node name="NewLineSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=1715007003]
+stream = ExtResource("6_ok6jj")
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+
+[node name="CoinSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=970701640]
+stream = ExtResource("7_facbu")
+volume_db = 2.346
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+max_instances = 20
+
+[node name="HealthSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=1618318863]
+stream = ExtResource("8_facbu")
+volume_db = 6.256
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+pitch_variation = 0.05
+
+[node name="BlockDestroyedSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=1422655934]
+stream = ExtResource("9_4lmeg")
+volume_db = 7.82
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+max_instances = 3
+pitch_variation = 0.2
+
+[node name="CityImpactSFX" type="AudioStreamPlayer" parent="SFXManager" unique_id=104269489]
+stream = ExtResource("10_0cp0l")
+volume_db = -10.947
+bus = &"SFX"
+script = ExtResource("1_kq58d")
+pitch_variation = 0.1
+random_stream = Array[AudioStream]([ExtResource("10_0cp0l"), ExtResource("11_d2t1y"), ExtResource("12_gngh3")])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1353625902]
 position = Vector2(960, 540)
