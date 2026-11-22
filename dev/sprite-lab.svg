@@ -24,12 +24,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#373737"
      inkscape:document-units="mm"
-     inkscape:zoom="0.35901375"
-     inkscape:cx="3495.6878"
-     inkscape:cy="1451.1979"
+     inkscape:zoom="0.50772211"
+     inkscape:cx="3153.2997"
+     inkscape:cy="2054.2733"
      inkscape:window-width="1920"
-     inkscape:window-height="1048"
-     inkscape:window-x="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -2111,5 +2111,26 @@
        inkscape:export-filename="../sprites/frame-circle.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.772px;line-height:1.2;font-family:Dhurjati;-inkscape-font-specification:'Dhurjati, @wght=405';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:'wght' 405;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:52.3972;stroke-linecap:round;stroke-linejoin:round"
+       x="3175.1389"
+       y="2147.1033"
+       id="text28"><tspan
+         sodipodi:role="line"
+         id="tspan28"
+         x="3175.1389"
+         y="2147.1033"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.772px;font-family:Dhurjati;-inkscape-font-specification:'Dhurjati, @wght=405';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:'wght' 405;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:52.3972">Be careful with your lines!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:145.665px;line-height:1.2;font-family:Quicksand;-inkscape-font-specification:'Quicksand, @wght=700';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:'wght' 700;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:16.9285;stroke-linecap:round;stroke-linejoin:round"
+       x="2941.3916"
+       y="2440.0181"
+       id="text29"><tspan
+         sodipodi:role="line"
+         id="tspan29"
+         x="2941.3916"
+         y="2440.0181">10$</tspan></text>
   </g>
 </svg>
