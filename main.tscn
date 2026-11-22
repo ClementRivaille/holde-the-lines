@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://br00ph2sqaa2b" path="res://sprites/notification-frame.png" id="24_a6jrf"]
 [ext_resource type="Script" uid="uid://cmdbrmcfw4lud" path="res://scripts/end_screen.gd" id="24_xuqvo"]
 [ext_resource type="FontFile" uid="uid://dgup7axsohp5n" path="res://fonts/dhurjati.ttf" id="37_d2t1y"]
+[ext_resource type="Script" uid="uid://clfbx1762tsly" path="res://scripts/controls_instructions.gd" id="41_gngh3"]
 
 [sub_resource type="Resource" id="Resource_getpj"]
 script = ExtResource("3_ryguw")
@@ -321,6 +322,10 @@ _data = {
 &"pop-in": SubResource("Animation_xuqvo"),
 &"pop-out": SubResource("Animation_qsp4k")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_j6n0j"]
+font = ExtResource("37_d2t1y")
+font_size = 31
 
 [node name="Main" type="Node2D" unique_id=626972420]
 
@@ -883,6 +888,22 @@ vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanva/EndScreen" unique_id=227865878]
 libraries/ = SubResource("AnimationLibrary_qsp4k")
+
+[node name="Controls" type="Label" parent="UICanva" unique_id=1719148321]
+anchors_preset = -1
+anchor_left = 0.74010414
+anchor_top = 0.23425926
+anchor_right = 0.95416665
+anchor_bottom = 0.64444447
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Drag and drop pieces with left click
+Rotate with right click while holding"
+label_settings = SubResource("LabelSettings_j6n0j")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("41_gngh3")
+metadata/_edit_use_anchors_ = true
 
 [node name="WavesSpawners" type="Node2D" parent="." unique_id=501644061]
 position = Vector2(0, -300)
