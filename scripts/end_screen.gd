@@ -19,7 +19,8 @@ func on_game_over():
 	animation_player.play("pop-in")
 
 func restart():
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	animation_player.play("pop-out")
 	await animation_player.animation_finished
-
-	#TODO: call store.restart
+	GameStoreInstance.restart_game()
+	visible = false

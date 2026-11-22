@@ -15,9 +15,14 @@ func _ready() -> void:
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	GameStoreInstance.game_started.connect(on_game_start)
+	GameStoreInstance.game_reset.connect(on_game_reset)
 
 func on_game_start():
 	button_1.init(price, level)
 	button_2.init(price, level)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	visible = true
+
+func on_game_reset():
+	button_1.reset()
+	button_2.reset()

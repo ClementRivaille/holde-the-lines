@@ -19,6 +19,7 @@ func _ready() -> void:
 	GameStoreInstance.city_damaged.connect(on_city_damaged)
 	GameStoreInstance.city_heal.connect(on_city_heal)
 	GameStoreInstance.game_over.connect(on_game_over)
+	GameStoreInstance.game_reset.connect(on_reset)
 	AnimCoordinator.should_play_anim.connect(on_animation)
 
 func on_city_damaged(hp: int):
@@ -41,6 +42,8 @@ func update_cracks(hp: int):
 	if crack_index >= 0:
 		cracks.visible = true
 		cracks.texture = cracks_textures[min(crack_index, cracks_textures.size() - 1)]
+	else:
+		cracks.visible = 0
 
 func on_animation(anim: AnimationProperties):
 	if anim.kind == AnimationProperties.AnimationKind.CITY_INCOME:
@@ -49,3 +52,8 @@ func on_animation(anim: AnimationProperties):
 func on_game_over():
 	sprite.visible = false
 	smokes.restart()
+
+func on_reset():
+	sprite.visible = true
+	smokes.emitting = false
+	update_cracks(GameStore.CITY_HP_TOTAL)

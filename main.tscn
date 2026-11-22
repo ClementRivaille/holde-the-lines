@@ -402,6 +402,7 @@ price = 4
 
 [node name="ShopShelf2" parent="UICanva/Shop" unique_id=396743517 instance=ExtResource("14_1u8w0")]
 layout_mode = 1
+anchors_preset = 14
 anchor_top = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
@@ -815,3 +816,4 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="UICanva/TitleScreen/StartButton" to="UICanva/TitleScreen" method="start_game"]
+[connection signal="pressed" from="UICanva/EndScreen/Content/Button" to="UICanva/EndScreen" method="restart"]

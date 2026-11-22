@@ -16,6 +16,7 @@ func _ready() -> void:
 	update_timer.timeout.connect(on_update_display)
 	GameStoreInstance.money_updated.connect(on_money_updated)
 	GameStoreInstance.game_started.connect(on_game_start)
+	GameStoreInstance.game_reset.connect(on_game_start)
 
 	visible = false
 

@@ -17,6 +17,7 @@ func _ready() -> void:
 	GameStoreInstance.city_damaged.connect(on_city_damaged)
 	GameStoreInstance.city_heal.connect(on_city_healed)
 	GameStoreInstance.game_started.connect(on_game_start)
+	GameStoreInstance.game_reset.connect(on_reset)
 
 	visible = false
 
@@ -44,3 +45,6 @@ func _animate_icon(color: Color):
 	_tween_icon = create_tween()
 	icon.modulate = color
 	_tween_icon.tween_property(icon, "modulate", Color.WHITE, hit_duration)
+
+func on_reset():
+	health_bar.anchor_top = 0.0

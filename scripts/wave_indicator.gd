@@ -13,6 +13,7 @@ func _ready() -> void:
 	GameStoreInstance.time_to_wave_updated.connect(on_update_wave_time)
 	GameStoreInstance.game_started.connect(on_game_start)
 	GameStoreInstance.game_over.connect(on_game_over)
+	GameStoreInstance.game_reset.connect(on_game_start)
 
 	visible = false
 

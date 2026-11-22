@@ -16,6 +16,8 @@ enum GameState { START_SCREEN, PLAYING, END_SCREEN }
 
 signal block_pool_initiated
 signal game_started
+signal game_over
+signal game_reset
 
 signal on_drag
 signal on_drop(placed: bool)
@@ -30,7 +32,6 @@ signal damage_block(block: BlockProperties)
 signal destroy_block(id: int)
 signal city_damaged(hp: int)
 signal city_heal(hp: int)
-signal game_over
 
 signal wave_started(number: int)
 signal wave_stopped
@@ -314,3 +315,12 @@ func end_game():
 	wave_active = false
 	state = GameState.END_SCREEN
 	game_over.emit()
+
+func restart_game():
+	block_pool_instance.clear()
+	for row in grid_content:
+		for i in row.size():
+			row[i] = -1
+	init_game()
+	state = GameState.PLAYING
+	game_reset.emit()

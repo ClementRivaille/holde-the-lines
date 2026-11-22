@@ -34,6 +34,7 @@ func _ready() -> void:
 	GameStoreInstance.destroy_block.connect(on_block_destroyed)
 	AnimCoordinator.should_play_anim.connect(on_animation)
 	GameStoreInstance.game_started.connect(on_game_start)
+	GameStoreInstance.game_reset.connect(on_game_reset)
 
 func on_game_start():
 	tilemap.visible = true
@@ -118,3 +119,7 @@ func on_animation(anim: AnimationProperties):
 	elif anim.kind == AnimationProperties.AnimationKind.LINE:
 		var global_pos := tilemap.map_to_local(Vector2i(GameStore.GRID_WIDTH / 2, anim.row_idx)) + tilemap.global_position
 		AnimCoordinator.play_gold_animation(global_pos, true)
+
+func on_game_reset():
+	for block: BlockPiece in blocks_area.get_children():
+		block.queue_free()

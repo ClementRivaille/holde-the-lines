@@ -65,3 +65,11 @@ func on_money_updated(money: int, _diff: int):
 func on_game_over():
 	disabled = true
 	modulate = Color(Color.WHITE, alpha_disabled)
+
+func reset():
+	_tetromino.shape_type = get_random_shape()
+	_tetromino.block_types = get_random_blocks()
+	_tetromino.reset()
+
+	disabled = GameStoreInstance.money < price
+	modulate = Color(Color.WHITE, alpha_disabled) if disabled else Color.WHITE

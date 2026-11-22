@@ -9,6 +9,7 @@ func _ready() -> void:
 	GameStoreInstance.wave_ended.connect(on_wave_end)
 	GameStoreInstance.game_started.connect(on_game_start)
 	GameStoreInstance.game_over.connect(on_game_over)
+	GameStoreInstance.game_reset.connect(on_game_start)
 	timeout.connect(on_timeout)
 
 func on_game_start():

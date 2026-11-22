@@ -44,3 +44,6 @@ func pick_block_type(level: int) -> BlockProperties.BlockType:
 
 	var chances := shop_levels[level]
 	return chances.pick_type()
+
+func clear():
+	instanced_blocks.clear()
