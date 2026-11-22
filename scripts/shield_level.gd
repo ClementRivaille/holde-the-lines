@@ -16,6 +16,12 @@ var _tween_icon: Tween = null
 func _ready() -> void:
 	GameStoreInstance.city_damaged.connect(on_city_damaged)
 	GameStoreInstance.city_heal.connect(on_city_healed)
+	GameStoreInstance.game_started.connect(on_game_start)
+
+	visible = false
+
+func on_game_start():
+	visible = true
 
 func on_city_damaged(hp: int):
 	_update_bar(hp)

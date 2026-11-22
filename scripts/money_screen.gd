@@ -13,9 +13,15 @@ var displayed_value: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	init_value()
 	update_timer.timeout.connect(on_update_display)
 	GameStoreInstance.money_updated.connect(on_money_updated)
+	GameStoreInstance.game_started.connect(on_game_start)
+
+	visible = false
+
+func on_game_start():
+	init_value()
+	visible = true
 
 func init_value():
 	displayed_value = GameStoreInstance.money

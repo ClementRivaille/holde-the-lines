@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b5eo4kbnfhdac"]
+
+[ext_resource type="Texture2D" uid="uid://dpdlvo05aleo2" path="res://sprites/small-frame.png" id="1_pf5n1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mn2yo"]
+texture = ExtResource("1_pf5n1")
+texture_margin_left = 50.0
+texture_margin_top = 46.0
+texture_margin_right = 48.0
+texture_margin_bottom = 35.0
+
+[node name="RectButton" type="Button" unique_id=1343200469]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.30692318, 0.3069225, 0.30692264, 1)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxTexture_mn2yo")
+text = "Press me"

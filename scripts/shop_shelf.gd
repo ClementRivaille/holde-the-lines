@@ -11,5 +11,13 @@ class_name  ShopShelf
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	price_tag.text = "%s$"%price
+
+	visible = false
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	GameStoreInstance.game_started.connect(on_game_start)
+
+func on_game_start():
 	button_1.init(price, level)
 	button_2.init(price, level)
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	visible = true

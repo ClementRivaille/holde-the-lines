@@ -12,8 +12,10 @@ const GOLD_GAIN := 5
 const CITY_INCOME = 20
 const SHIELD_BLOCK_GAIN := 20
 
+enum GameState { START_SCREEN, PLAYING, END_SCREEN }
 
 signal block_pool_initiated
+signal game_started
 
 signal on_drag
 signal on_drop(placed: bool)
@@ -57,11 +59,17 @@ var money := 0
 
 var difficulty_settings: DifficultySettings = preload("res://resources/game_difficulty.tres")
 
+var state: GameState = GameState.START_SCREEN
+
 func _ready() -> void:
 	for row_idx in GRID_HEIGHT:
 		grid_content.append(range(GRID_WIDTH).map(func (_idx): return -1))
 
+
+func start_game():
 	init_game()
+	state = GameState.PLAYING
+	game_started.emit()
 
 func init_game():
 	city_hp = CITY_HP_TOTAL

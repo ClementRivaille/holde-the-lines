@@ -22,7 +22,12 @@
 [ext_resource type="PackedScene" uid="uid://c6xfac1nmabu7" path="res://scenes/shop_shelf.tscn" id="14_1u8w0"]
 [ext_resource type="Script" uid="uid://dsp1ygmupv0k3" path="res://scripts/shield_level.gd" id="15_82xsv"]
 [ext_resource type="Script" uid="uid://ccf4j0fqm2xb1" path="res://scripts/money_screen.gd" id="15_getpj"]
+[ext_resource type="Texture2D" uid="uid://dpdlvo05aleo2" path="res://sprites/small-frame.png" id="21_0odxb"]
+[ext_resource type="FontFile" uid="uid://bcohfsel21agy" path="res://fonts/iuwave-scanlines-regular-cyrillic-latin.otf" id="21_1u8w0"]
+[ext_resource type="Script" uid="uid://b8034acxa3m5n" path="res://scripts/title_screen.gd" id="21_lswn8"]
 [ext_resource type="AudioStream" uid="uid://7l1kvkikrcir" path="res://audio/hold-the-line_bg-music.ogg" id="23_d13ii"]
+[ext_resource type="Texture2D" uid="uid://br00ph2sqaa2b" path="res://sprites/notification-frame.png" id="24_a6jrf"]
+[ext_resource type="Script" uid="uid://cmdbrmcfw4lud" path="res://scripts/end_screen.gd" id="24_xuqvo"]
 
 [sub_resource type="Resource" id="Resource_getpj"]
 script = ExtResource("3_ryguw")
@@ -119,6 +124,138 @@ gradient = SubResource("Gradient_ycdy4")
 font_size = 42
 font_color = Color(1, 0.19999999, 0.19999999, 1)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0odxb"]
+texture = ExtResource("21_0odxb")
+texture_margin_left = 50.0
+texture_margin_top = 38.0
+texture_margin_right = 48.0
+texture_margin_bottom = 41.0
+modulate_color = Color(0.27029997, 0.51, 0.28627998, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lswn8"]
+texture = ExtResource("21_0odxb")
+texture_margin_left = 50.0
+texture_margin_top = 38.0
+texture_margin_right = 48.0
+texture_margin_bottom = 41.0
+modulate_color = Color(0.3774, 0.51, 0.38624, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekn1r"]
+line_spacing = -96.185
+font = ExtResource("21_1u8w0")
+font_size = 300
+font_color = Color(0.606825, 0.87, 0.5829, 1)
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 14
+shadow_color = Color(0.12729749, 0.21684974, 0.12750933, 1)
+shadow_offset = Vector2(14.245, 14.63)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d3lmj"]
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_vd3s5"]
+font = ExtResource("21_1u8w0")
+font_size = 80
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.44313726)
+shadow_offset = Vector2(2.765, 1.545)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r7mgy"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_7g5l7"]
+font_size = 30
+
+[sub_resource type="Animation" id="Animation_a6jrf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_xuqvo"]
+resource_name = "pop-in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.4829679, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.46666667),
+"transitions": PackedFloat32Array(1, 1.6245052, 0.5547847),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qsp4k"]
+resource_name = "pop-out"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.4829679),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666666),
+"transitions": PackedFloat32Array(0.5547847, 1.6245052),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qsp4k"]
+_data = {
+&"RESET": SubResource("Animation_a6jrf"),
+&"pop-in": SubResource("Animation_xuqvo"),
+&"pop-out": SubResource("Animation_qsp4k")
+}
+
 [node name="Main" type="Node2D" unique_id=626972420]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1353625902]
@@ -214,11 +351,8 @@ price = 4
 
 [node name="ShopShelf2" parent="UICanva/Shop" unique_id=396743517 instance=ExtResource("14_1u8w0")]
 layout_mode = 1
-anchors_preset = 14
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = 0.0
-offset_bottom = 0.0
 grow_horizontal = 2
 price = 10
 level = 1
@@ -299,6 +433,7 @@ wait_time = 0.05
 one_shot = true
 
 [node name="Screen" type="NinePatchRect" parent="UICanva" unique_id=900186025]
+visible = false
 anchors_preset = -1
 anchor_left = 0.74300003
 anchor_top = 0.656
@@ -422,6 +557,185 @@ label_settings = SubResource("LabelSettings_pvvjn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TitleScreen" type="Control" parent="UICanva" unique_id=128446293]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("21_lswn8")
+
+[node name="StartButton" type="Button" parent="UICanva/TitleScreen" unique_id=1343200469]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.6925926
+anchor_right = 0.5
+anchor_bottom = 0.8425926
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.98234254, 0.9823423, 0.9823424, 1)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxTexture_0odxb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0odxb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lswn8")
+text = "Click to start"
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="UICanva/TitleScreen" unique_id=201062752]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19947916
+anchor_top = 0.15677778
+anchor_right = 0.7994792
+anchor_bottom = 0.20155555
+offset_top = -169.32
+offset_right = 48.0
+offset_bottom = 169.32
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hold the Lines!"
+label_settings = SubResource("LabelSettings_ekn1r")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Instructions" type="Label" parent="UICanva/TitleScreen" unique_id=1684458623]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Protect the city
+Be careful of the lines you make"
+label_settings = SubResource("LabelSettings_d3lmj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndScreen" type="Control" parent="UICanva" unique_id=1002994289]
+layout_mode = 3
+anchor_left = 0.74322915
+anchor_top = 0.2361111
+anchor_right = 0.97302085
+anchor_bottom = 0.65555555
+offset_right = 0.79992676
+script = ExtResource("24_xuqvo")
+metadata/_edit_use_anchors_ = true
+
+[node name="Frame" type="NinePatchRect" parent="UICanva/EndScreen" unique_id=1183941127]
+self_modulate = Color(0.61, 0.23210502, 0.2257, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("24_a6jrf")
+patch_margin_left = 99
+patch_margin_top = 73
+patch_margin_right = 80
+patch_margin_bottom = 62
+
+[node name="Content" type="Control" parent="UICanva/EndScreen" unique_id=2113168444]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="Label" parent="UICanva/EndScreen/Content" unique_id=1655823101]
+custom_minimum_size = Vector2(100, 0)
+custom_maximum_size = Vector2(398, -1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.079
+anchor_right = 1.0
+anchor_bottom = 0.34978694
+offset_left = 12.0
+offset_top = 0.1064415
+offset_right = -32.0
+offset_bottom = -25.560028
+text = "The city is destroyed!"
+label_settings = SubResource("LabelSettings_vd3s5")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="UICanva/EndScreen/Content" unique_id=829230981]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.349
+anchor_right = 1.0
+anchor_bottom = 0.532
+offset_left = 12.0
+offset_top = -0.09700012
+offset_right = -33.0
+offset_bottom = 2.0039978
+text = "Wave 6 had the better of you"
+label_settings = SubResource("LabelSettings_r7mgy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="UICanva/EndScreen/Content" unique_id=1640975870]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.726
+anchor_right = 0.5
+anchor_bottom = 0.82600003
+offset_left = -100.0
+offset_top = 0.12200928
+offset_right = 100.0
+offset_bottom = -0.17800903
+grow_horizontal = 2
+text = "Restart"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Texture" type="NinePatchRect" parent="UICanva/EndScreen/Content/Button" unique_id=1205867814]
+self_modulate = Color(0.308, 0.41906667, 0.7, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -17.0
+offset_right = 1.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_0odxb")
+region_rect = Rect2(0, 0, 319, 308)
+patch_margin_left = 39
+patch_margin_top = 43
+patch_margin_right = 44
+patch_margin_bottom = 44
+
+[node name="Label" type="Label" parent="UICanva/EndScreen/Content/Button" unique_id=1736221464]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+label_settings = SubResource("LabelSettings_7g5l7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UICanva/EndScreen" unique_id=227865878]
+libraries/ = SubResource("AnimationLibrary_qsp4k")
+
 [node name="WavesSpawners" type="Node2D" parent="." unique_id=501644061]
 position = Vector2(0, -300)
 
@@ -448,3 +762,5 @@ time_before_wave = 30.0
 stream = ExtResource("23_d13ii")
 autoplay = true
 bus = &"Music"
+
+[connection signal="pressed" from="UICanva/TitleScreen/StartButton" to="UICanva/TitleScreen" method="start_game"]

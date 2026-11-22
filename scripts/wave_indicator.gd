@@ -8,12 +8,18 @@ class_name WaveIndicator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	current_wave_label.visible = false
-	incoming_wave_label.text = get_incoming_wave_text(0)
-
 	GameStoreInstance.wave_started.connect(on_start_wave)
 	GameStoreInstance.wave_ended.connect(on_stop_wave)
 	GameStoreInstance.time_to_wave_updated.connect(on_update_wave_time)
+	GameStoreInstance.game_started.connect(on_game_start)
+
+	visible = false
+
+func on_game_start():
+	visible = true
+	current_wave_label.visible = false
+	wave_time.visible = true
+	incoming_wave_label.text = get_incoming_wave_text(0)
 
 func get_incoming_wave_text(number: int) -> String:
 	return "Time before wave %s"%(number + 1)

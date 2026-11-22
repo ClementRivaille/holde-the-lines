@@ -7,8 +7,10 @@ class_name  WaveTimer
 func _ready() -> void:
 	GameStoreInstance.wave_started.connect(on_wave_start)
 	GameStoreInstance.wave_ended.connect(on_wave_end)
+	GameStoreInstance.game_started.connect(on_game_start)
 	timeout.connect(on_timeout)
 
+func on_game_start():
 	start(time_before_wave)
 
 func on_timeout():

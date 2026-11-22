@@ -23,6 +23,7 @@ func _ready() -> void:
 	mouse_exited.connect(on_mouse_exit)
 
 	tilemap.position = Vector2(-float(GameStore.GRID_WIDTH) / 2 * BlockPiece.BLOCK_SIZE, -float(GameStore.GRID_HEIGHT) / 2 * BlockPiece.BLOCK_SIZE)
+	tilemap.visible = false
 
 	GameStoreInstance.on_tetromino_placeable.connect(on_block_placeable)
 	GameStoreInstance.blocks_added.connect(on_add_blocks)
@@ -32,6 +33,10 @@ func _ready() -> void:
 	GameStoreInstance.damage_block.connect(on_block_damaged)
 	GameStoreInstance.destroy_block.connect(on_block_destroyed)
 	AnimCoordinator.should_play_anim.connect(on_animation)
+	GameStoreInstance.game_started.connect(on_game_start)
+
+func on_game_start():
+	tilemap.visible = true
 
 func on_mouse_enter():
 	_is_cursor_inside = true
