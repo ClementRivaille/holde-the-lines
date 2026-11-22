@@ -4,11 +4,11 @@ class_name GameStore
 const GRID_WIDTH := 10
 const GRID_HEIGHT := 20
 
-const CITY_HP_TOTAL := 200
-const MONEY_START := 50
-const LINE_GAIN := 10
+const CITY_HP_TOTAL := 300
+const MONEY_START := 100
+const LINE_GAIN := 30
 const LINE_BONUS := 1.5
-const GOLD_GAIN := 5
+const GOLD_GAIN := 2
 const CITY_INCOME = 20
 const SHIELD_BLOCK_GAIN := 20
 
@@ -286,7 +286,7 @@ func end_wave():
 	money += gain
 	money_updated.emit(money, gain)
 	if extra_hp > 0:
-		city_hp += extra_hp
+		city_hp = min(CITY_HP_TOTAL, city_hp + extra_hp)
 		city_heal.emit(city_hp)
 	wave_ended.emit()
 	AnimCoordinator.play_queued_animations()
