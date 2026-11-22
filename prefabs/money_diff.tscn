@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://b5d2vg6lmmfa4"]
 
+[ext_resource type="FontFile" uid="uid://bcohfsel21agy" path="res://fonts/iuwave-scanlines-regular-cyrillic-latin.otf" id="1_cqjw8"]
 [ext_resource type="Script" uid="uid://t6xw6mj22t6n" path="res://scripts/money_diff.gd" id="1_yirs3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pvvjn"]
-font_size = 50
+font = ExtResource("1_cqjw8")
+font_size = 60
 
 [sub_resource type="Animation" id="Animation_sfm5l"]
 length = 0.001
@@ -89,7 +91,7 @@ anchor_bottom = 0.5
 offset_left = -68.5
 offset_top = -21.0
 offset_right = 68.5
-offset_bottom = 62.000244
+offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "+20$"

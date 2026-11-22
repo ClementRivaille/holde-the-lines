@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://donqeondss66j" path="res://scripts/shop_shelf.gd" id="1_t0ef8"]
 [ext_resource type="Texture2D" uid="uid://due88n6alwvt0" path="res://sprites/price-tag.png" id="1_vfa0t"]
 [ext_resource type="PackedScene" uid="uid://tgil3yun5noc" path="res://scenes/shop_button.tscn" id="2_t0ef8"]
+[ext_resource type="FontFile" uid="uid://dgup7axsohp5n" path="res://fonts/dhurjati.ttf" id="3_qs2px"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vfa0t"]
-font_size = 40
+font = ExtResource("3_qs2px")
+font_size = 60
 font_color = Color(0.14, 0.14, 0.14, 1)
 
 [node name="ShopShelf" type="Control" unique_id=1082238481]
@@ -38,6 +40,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -4.6480103
+offset_bottom = 26.149994
 grow_horizontal = 2
 grow_vertical = 2
 text = "8$"

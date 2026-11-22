@@ -42,6 +42,7 @@
 [ext_resource type="AudioStream" uid="uid://7l1kvkikrcir" path="res://audio/hold-the-line_bg-music.ogg" id="23_d13ii"]
 [ext_resource type="Texture2D" uid="uid://br00ph2sqaa2b" path="res://sprites/notification-frame.png" id="24_a6jrf"]
 [ext_resource type="Script" uid="uid://cmdbrmcfw4lud" path="res://scripts/end_screen.gd" id="24_xuqvo"]
+[ext_resource type="FontFile" uid="uid://dgup7axsohp5n" path="res://fonts/dhurjati.ttf" id="37_d2t1y"]
 
 [sub_resource type="Resource" id="Resource_getpj"]
 script = ExtResource("3_ryguw")
@@ -157,6 +158,7 @@ tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 
 [sub_resource type="LabelSettings" id="LabelSettings_jbi04"]
+font = ExtResource("21_1u8w0")
 font_size = 90
 font_color = Color(0.44705668, 0.86, 0.28379998, 1)
 
@@ -168,7 +170,8 @@ colors = PackedColorArray(0.44705883, 0.30588236, 0.8156863, 1, 0.5836626, 0.488
 gradient = SubResource("Gradient_dg77c")
 
 [sub_resource type="LabelSettings" id="LabelSettings_r30ga"]
-font_size = 18
+font = ExtResource("37_d2t1y")
+font_size = 30
 
 [sub_resource type="Gradient" id="Gradient_ycdy4"]
 offsets = PackedFloat32Array(0)
@@ -178,15 +181,16 @@ colors = PackedColorArray(0.65, 0.16141666, 0.117, 1)
 gradient = SubResource("Gradient_ycdy4")
 
 [sub_resource type="LabelSettings" id="LabelSettings_pvvjn"]
-font_size = 42
+font = ExtResource("21_1u8w0")
+font_size = 80
 font_color = Color(1, 0.19999999, 0.19999999, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0odxb"]
 texture = ExtResource("21_0odxb")
 texture_margin_left = 50.0
-texture_margin_top = 38.0
+texture_margin_top = 36.0
 texture_margin_right = 48.0
-texture_margin_bottom = 41.0
+texture_margin_bottom = 22.0
 modulate_color = Color(0.27029997, 0.51, 0.28627998, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lswn8"]
@@ -208,7 +212,9 @@ shadow_color = Color(0.12729749, 0.21684974, 0.12750933, 1)
 shadow_offset = Vector2(14.245, 14.63)
 
 [sub_resource type="LabelSettings" id="LabelSettings_d3lmj"]
-font_size = 42
+line_spacing = -20.0
+font = ExtResource("37_d2t1y")
+font_size = 52
 
 [sub_resource type="LabelSettings" id="LabelSettings_vd3s5"]
 font = ExtResource("21_1u8w0")
@@ -218,10 +224,13 @@ shadow_color = Color(0, 0, 0, 0.44313726)
 shadow_offset = Vector2(2.765, 1.545)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r7mgy"]
-font_size = 20
+font = ExtResource("37_d2t1y")
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_7g5l7"]
-font_size = 30
+line_spacing = 0.0
+font = ExtResource("37_d2t1y")
+font_size = 35
 
 [sub_resource type="Animation" id="Animation_a6jrf"]
 length = 0.001
@@ -515,6 +524,7 @@ patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 script = ExtResource("15_getpj")
+nb_digits = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="DolarSign" type="Label" parent="UICanva/MoneyScreen" unique_id=660351321]
@@ -710,6 +720,7 @@ anchor_bottom = 0.8425926
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.98234254, 0.9823423, 0.9823424, 1)
+theme_override_fonts/font = ExtResource("37_d2t1y")
 theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxTexture_0odxb")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0odxb")
@@ -856,10 +867,13 @@ patch_margin_bottom = 44
 
 [node name="Label" type="Label" parent="UICanva/EndScreen/Content/Button" unique_id=1736221464]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = -0.133
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 5.985
 offset_right = -21.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Restart"
